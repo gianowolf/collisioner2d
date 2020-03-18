@@ -1,5 +1,5 @@
-const SPEED = 1;
-const RADIO = 4;
+const SPEED = .5;
+const RADIO = 5;
 
 class Particle{
 
@@ -19,6 +19,9 @@ class Particle{
         this.dy = Math.sin(theta) * SPEED;
 	}
 
+	getRadio(){ return RADIO; };
+
+	getSpeed(){ return SPEED; };
 
 	getColor(){
 		switch (this.state) {
@@ -31,7 +34,7 @@ class Particle{
 			default:
 				break;
 		}
-	}
+	};
 
 	draw(){
 		let canvas = document.querySelector("#canvas");
@@ -45,11 +48,21 @@ class Particle{
 
 		//Rellena la particula
 		ctx.fill();
-	}
+	};
 
 	move(){
-        this.x += this.dx;
+        /*this.x += this.dx;
+		this.y += this.dy;*/
+		if(this.x + this.dx >= canvas.clientWidth || this.x + this.dx <= 0){
+			this.dx = -this.dx;
+		}
+
+		if(this.y + this.dy >= canvas.clientHeight || this.y + this.dy <= 0){
+			this.dy = -this.dy;
+		}
+
+		this.x += this.dx;
 		this.y += this.dy;
-	}
+	};
 
 }
