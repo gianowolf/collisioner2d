@@ -1,118 +1,19 @@
-class QuadTree{
+class Quadtree{
 
-	constructor(bounds, maxLevels, maxObjects , level){
-        this.maxLevels = maxLevels;     //Cantidad maxima de niveles permitidas en el arbol  
-        this.maxObjects = maxObjects;   //Cantidad maxima de particulas permitidas en un nodo
-        this.level = level;             //Nivel que tiene el arbol  
-        this.nodes = []
-        this.particulas = []; 
-        this.bounds = bounds;             
-	}
+    constructor(bds, maxLvl , maxPrt , lvl){
 
-	getHijos(){
-		return this.nodes;
-	}
-
-	getParticulas(){
-		return this.particulas;
+        this.maxLevels = maxLvl;
+        this.maxParticles = maxPrt;
+        this.level = lvl;
+        this.nodes = [];
+        this.particulas = [];
+        this.bounds = bds;
     }
 
-	insert(particula){
-		
-		var indexes = 0;
+    getHijos(){
+        return this.particulas;
+    }
 
-		if(this.nodes.length) {
-            indexes = this.getIndex(particula);
-     
-            for(i=0; i<indexes.length; i++) {
-                this.nodes[indexes[i]].insert(particula);     
-            }
-            return;
-        }
-     
-        //otherwise, store object here
-        this.particulas.push(particula);
-
-        //max_objects reached
-
-        if(this.particulas.length > this.maxObjects && this.level < this.maxLevels) {
-
-            //split if we don't already have subnodes
-            if(!this.nodes.length) {
-                this.split();
-            }
-            
-            //add all objects to their corresponding subnode
-            for(var i=0; i<this.particulas.length; i++) {
-                indexes = this.getIndex(this.particulas[i]);
-                for(var k=0; k<indexes.length; k++) {
-                    this.nodes[indexes[k]].insert(this.particulas[i]);
-                }
-            }
-
-            //clean up this node
-            this.particulas = [];
-        }
-	}
-
-
-    /*
-    * Split(): Dividimos cada Nodo en 4 sub-nodos
-    */
-    split(){
-
-        var nextLevel   = this.level + 1,
-            subWidth    = this.bounds.width/2,
-            subHeight   = this.bounds.height/2,
-            x           = this.bounds.x,
-            y           = this.bounds.y;
-
-        //NODO SUPERIOR DERECHO
-        this.nodes[0] = new QuadTree({
-            x   : x + subWidth,
-            y   : y,
-            width: subWidth,
-            height: subHeight  
-        }, this.maxLevels , this.maxObjects ,  nextLevel);
-		this.nodes[0].draw();
-        
-        
-        //NODO SUPERIOR IZQUIERDO
-        this.nodes[1] = new QuadTree({
-            x   : x,
-            y   : y,
-            width: subWidth,
-            height: subHeight  
-        } , this.maxObjects , this.maxLevels , nextLevel);
-		this.nodes[1].draw();
-
-        //NODO INFERIOR IZQUIERDO
-        this.nodes[2] = new QuadTree({
-            x   : x,
-            y   : y + subHeight,
-            width: subWidth,
-            height: subHeight  
-        } , this.maxObjects , this.maxLevels , nextLevel);
-		this.nodes[2].draw();
-
-        //NODO INFERIOR DERECHO
-        this.nodes[3] = new QuadTree({
-            x   : x + subWidth,
-            y   : y + subHeight,
-            width: subWidth,
-            height: subHeight  
-		} , this.maxObjects , this.maxLevels , nextLevel);
-        this.nodes[3].draw();
-        
-	};
-
-
-    /*
-    * Calcula a qué nodo pertenece el objeto
-    * input: Particula      calcula los bordes y la posicion: x y iwdth y height
-    * return: Array         un array con los indices de todos los subnodos 
-    *   0: Arriba derecha - 1: Arriba Izq - 2: Abajo izquierda - 3: abajo derecha.
-    */
     getIndex(particula){
 
         var indexes = [],
@@ -120,6 +21,7 @@ class QuadTree{
             horizontalMidpoint  = this.bounds.y + (this.bounds.height/2);
 
         var radio = particula.getRadio();
+        
         var startIsNorth = particula.y - radio < horizontalMidpoint,
             startIsWest  = particula.x - radio < verticalMidpoint,
             endIsEast    = particula.x + radio > verticalMidpoint,
@@ -145,11 +47,46 @@ class QuadTree{
 		return indexes;
     };
 
-    /*
-    * devuelve un array con los objetos los objetos de bloques cercanos
-    * Return: array with detected objects
-    * param: particula para checkear los bordes
-    */
+    insert(particula){
+        
+        var indexes = 0;
+
+        //si tiene hijos
+        if(this.nodes.length){
+            indexes = this.getIndex(particula);
+            
+            for (let i = 0; i < indexes.length; i++) {
+                this.nodes[indexes[i]].insert(particula);
+                
+            }
+            return;
+        }
+
+        //caso contrario
+        this.particulas.push(particula);
+
+        //si alcanzamos el maximo de objetos
+        if(this.particulas.length > this.maxParticles && this.level < this.maxLevels){
+
+            //si no tenemos hijos, dividimos
+            if(!this.nodes.length){
+                this.split();
+            }
+
+            //agregamos las particulas a los nodos
+            for(var i = 0 ; i < this.particulas.length ; i++){
+                
+                indexes = this.getIndex(this.particulas[i]);
+                for(var k = 0 ; k < indexes.length ; k++){
+                    this.nodes[indexes[k]].insert(this.particulas[i]);
+                }
+            }
+
+            this.particulas = [];
+        }
+        
+    }
+
     detectObjects(particula){
 
         var indexes = this.getIndex(particula),
@@ -170,29 +107,70 @@ class QuadTree{
         return returnObjects;
     };
 
-    /*
-    * Limpiamos el arbol
-    */
 
     clear(){
-        
+
         this.particulas = [];
 
-        for (let i = 0; i < this.particulas.length; i++) {
+        for(let i = 0 ; i < this.particulas.length ; i++){
             if(this.nodes.length){
                 this.particulas[i].clear();
             }
         }
 
-        this.nodes = [];
+        this.nodes = []
+    };
+
+    split(){
+        var nextLevel   = this.level + 1,
+            subWidth    = this.bounds.width/2,
+            subHeight   = this.bounds.height/2,
+            x           = this.bounds.x,
+            y           = this.bounds.y;
+
+        //NODO SUPERIOR DERECHO
+        this.nodes[0] = new Quadtree({
+            x   : x + subWidth,
+            y   : y,
+            width: subWidth,
+            height: subHeight  
+        }, this.maxLevels , this.maxParticles ,  nextLevel);
+		this.nodes[0].draw();
+        
+        
+        //NODO SUPERIOR IZQUIERDO
+        this.nodes[1] = new Quadtree({
+            x   : x,
+            y   : y,
+            width: subWidth,
+            height: subHeight  
+        } , this.maxLevels, this.maxParticles  , nextLevel);
+		this.nodes[1].draw();
+
+        //NODO INFERIOR IZQUIERDO
+        this.nodes[2] = new Quadtree({
+            x   : x,
+            y   : y + subHeight,
+            width: subWidth,
+            height: subHeight  
+        } , this.maxLevels , this.maxParticles ,  nextLevel);
+        this.nodes[2].draw();
+
+        //NODO INFERIOR DERECHO
+        this.nodes[3] = new Quadtree({
+            x   : x + subWidth,
+            y   : y + subHeight,
+            width: subWidth,
+            height: subHeight  
+		} , this.maxLevels , this.maxParticles , nextLevel);
+        this.nodes[3].draw();
 	};
-	
-	draw(){
+
+    draw(){
 		let canvas = document.querySelector("#canvas");
-		var ctx = canvas.getContext("2d");
-		ctx.fillStyle = "red";
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = "red";
 		ctx.strokeRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
-
-	};
-
+    };
+    
 }

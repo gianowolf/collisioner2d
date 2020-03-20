@@ -4,7 +4,7 @@
     margin: 0;
     font-family: Roboto;
 }
-#canvas { 
+canvas { 
     background: #25252a;
     display: block; 
     margin: 0 auto; 
@@ -37,10 +37,6 @@ li{
 
 li a{
     padding: 20px 30px;
-}
-li a:hover{
-    cursor: pointer;
-    opacity: 75%;
 }
 
 .datos{
