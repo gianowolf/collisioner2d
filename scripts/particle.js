@@ -1,70 +1,244 @@
-const SPEED = 2;
-const RADIO = 2;
+let total_sick = 0,
+    total_recovered = 0,
+    total_deceased = 0,
+    total_healthy = 0;
+
 
 class Particle{
 
-    constructor(esInmovil){
-        this.state = 0; //0 Healthy - 1 Sick - 2 Recuperado
-        this.x = Math.random() * document.getElementById("canvas").clientWidth /2 ;
-        this.y = Math.random() * document.getElementById("canvas").clientHeight /2;
-        
-        let theta = Math.random()  * 2 * Math.PI;
-        this.dx   =  Math.cos(theta) * SPEED;
-        this.dy   =  Math.sin(theta) * SPEED ;
-        
-        this.esInmovil = esInmovil;
-      
-    }
+    constructor(state)
+    {
+        // Random Age particle
+        let rand = Math.random() * 10;
+        if(rand < 2.5)
+        {
+            this.edad = 0;
+        }
+        else if(rand < 8.5){
+            this.edad = 1;
+        } else{
+            this.edad = 2;
+        }
 
-    getRadio(){
-        return RADIO;
-    }
+        //Creates particle in random-position
+        this.x = RADIO + Math.random() * (document.getElementById("canvas").clientWidth - 2 *RADIO) ;
+        this.y = RADIO + Math.random() * (document.getElementById("canvas").clientHeight - 2* RADIO);
 
+        //State: sick | healthy
+        this.state = state; 
 
-    esInmovil(){
-        return this.esInmovil;
-    }
+        if(state) //zero-patient
+        {
+            this.imSick();
+            total_sick++;
 
-    getColor(){
-
-        switch(this.state){
-            case 0: //healthy
-                return "#555555";
-            case 1: //sick
-                return "red";
-            case 2: //recovered
-                return "#04b9fc"
-            default:
-                break;
+        }else{
+            total_healthy++;
         }
     }
-    
-    draw(){
+
+
+
+    imSick()
+    {
+        total_sick++;
+        total_healthy--;
+        switch (this.edad) {
+
+            //Anciano
+            case 0:
+                if(this.isSatured()){ 
+                    setTimeout(() => { 
+                        this.state = DECEASED;
+                        total_deceased++;
+                        this.dx = 0; this.dy = 0;
+                        total_sick--;
+                    }, TIME_SICK)}
+                else{
+                    if(Math.random() < 0.3){
+                        setTimeout(() => { 
+                            this.state = DECEASED;
+                            total_deceased++;
+                            this.dx = 0; this.dy = 0;
+                            total_sick--;
+                        }, TIME_SICK)
+                    }
+                    else{
+                        setTimeout(() => { 
+                            this.state = RECOVERED;
+                            total_recovered++;
+                            total_sick--;
+                        }, TIME_SICK)
+                    }
+
+                }
+                break;
+
+            default:
+                if(this.isSatured()){ 
+                    if(Math.random() < 0.1){
+                        setTimeout(() => { 
+                            this.state = DECEASED;
+                            total_deceased++;
+                            this.dx = 0; this.dy = 0;
+                            total_sick--;
+                        }, TIME_SICK)
+                    }
+                }
+                else{
+                    if(Math.random() < 0.001){
+                        setTimeout(() => { 
+                            this.state = DECEASED;
+                            total_deceased++;
+                            this.dx = 0; this.dy = 0;
+                            total_sick--;
+                        }, TIME_SICK)
+                    }
+                    else{
+                        setTimeout(() => { 
+                            this.state = RECOVERED;
+                            total_recovered++;
+                            total_sick--;
+                        }, TIME_SICK)
+                    }
+                }
+        
+                break;
+        }
+
+     
+    }
+
+    static isSatured(){
+        if(total_sick/CANT_PARTICULAS > 0.3){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    changeState(contact_particle)
+    {
+        if(this.state == 0 && contact_particle.state == 1)
+        {
+            this.state = 1;
+            this.imSick();
+        }
+    }
+
+
+    isSatured(){
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+    /*
+    * POSITION & DRAWING 
+    */
+
+   getColor()
+   {
+       switch(this.state)
+       {
+           case 0:
+               return COLOR_HEALTHY;
+           case 1: 
+               return COLOR_SICK;
+           case 2: 
+               return COLOR_RECOVERED;
+           case 4:
+               return COLOR_DECEASED;
+           default:
+               break;
+       }
+   }
+
+    draw()
+    {
         let cv = document.getElementById("canvas");
         let ctx = cv.getContext("2d");
         
         ctx.beginPath();
 
-        //Dibuja particula
         ctx.fillStyle = this.getColor();
         ctx.arc(this.x, this.y, RADIO, 0, Math.PI*2, true);
 
         ctx.fill();
-
     }
 
     move(){
         //Verificamos que la particula no sobrepase horizontalmente 
-        if(this.x + this.dx >= canvas.clientWidth || this.x + this.dx <= 0){
+        if(this.x + this.dx + RADIO >= canvas.clientWidth || this.x + this.dx - RADIO<= 0)
+        {
 			this.dx = -this.dx;
         }
         
         //Verificamos que la particula no sobrepase verticalmente
-		if(this.y + this.dy >= canvas.clientHeight || this.y + this.dy <= 0){
+        if(this.y + this.dy + RADIO >= canvas.clientHeight || this.y + this.dy - RADIO <= 0)
+        {
 			this.dy = -this.dy;
 		}
 
 		this.x += this.dx;
 		this.y += this.dy;
     }
+
+    setSpeed(dx,dy){
+
+    }
+
+    static versus(p1,p2)
+    {
+        let radioCuadrado = (RADIO + RADIO) * (RADIO + RADIO);
+        let distanciaX = p2.x - p1.x;
+        let distanciaY = p2.y - p1.y;
+        //Pitagoras
+        let distanciaCuadrado = (distanciaX * distanciaX) + (distanciaY * distanciaY);
+
+        // Filtro de que colisione el circulo, y no el cuadrado
+        if (distanciaCuadrado > radioCuadrado)
+        {
+            return;
+        }
+
+        p1.changeState(p2);
+        p2.changeState(p1);
+
+        let distanciaMagnitud = Math.sqrt(distanciaCuadrado);
+
+        let distanciaNormalX;
+        let distanciaNormalY;
+
+        if (distanciaMagnitud > 0) {
+            distanciaNormalX = distanciaX / distanciaMagnitud;
+            distanciaNormalY = distanciaY / distanciaMagnitud;
+        } 
+        else 
+        {
+            distanciaNormalX = 1;
+            distanciaNormalY = 0;
+        }
+        
+        if(p1.state != DECEASED){
+            p1.setSpeed(-distanciaNormalX * SPEED,-distanciaNormalY * SPEED)
+        }
+
+        if(p2.state != DECEASED){
+            p2.setSpeed(distanciaNormalX * SPEED, distanciaNormalY * SPEED)
+        }
+
+     
+
+    }
 }
+
+

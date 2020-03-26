@@ -19,13 +19,11 @@ class Quadtree{
         var indexes = [],
             verticalMidpoint    = this.bounds.x + (this.bounds.width/2),
             horizontalMidpoint  = this.bounds.y + (this.bounds.height/2);
-
-        var radio = particula.getRadio();
         
-        var startIsNorth = particula.y - radio < horizontalMidpoint,
-            startIsWest  = particula.x - radio < verticalMidpoint,
-            endIsEast    = particula.x + radio > verticalMidpoint,
-            endIsSouth   = particula.y + radio > horizontalMidpoint;
+        var startIsNorth = particula.y - RADIO < horizontalMidpoint,
+            startIsWest  = particula.x - RADIO < verticalMidpoint,
+            endIsEast    = particula.x + RADIO > verticalMidpoint,
+            endIsSouth   = particula.y + RADIO > horizontalMidpoint;
         
         //CUADRANTE SUPERIOR DERECHO
         if(startIsNorth && endIsEast){
@@ -89,11 +87,11 @@ class Quadtree{
 
     detectObjects(particula){
 
-        var indexes = this.getIndex(particula),
-        returnObjects = this.particulas;
+        var indexes = this.getIndex(particula), //obtengo los cuadrantes
+            returnObjects = this.particulas; //agrega las particulas del nodo
 
         //si hay subnodos, se devuelven
-        if(this.nodes.length){
+        if(this.nodes.length){ 
             for(var i=0 ; i<indexes.length ; i++){
                 returnObjects = returnObjects.concat(this.nodes[indexes[i]].detectObjects(particula));
             }
@@ -106,7 +104,6 @@ class Quadtree{
 
         return returnObjects;
     };
-
 
     clear(){
 
@@ -135,8 +132,7 @@ class Quadtree{
             width: subWidth,
             height: subHeight  
         }, this.maxLevels , this.maxParticles ,  nextLevel);
-		this.nodes[0].draw();
-        
+
         
         //NODO SUPERIOR IZQUIERDO
         this.nodes[1] = new Quadtree({
@@ -145,7 +141,8 @@ class Quadtree{
             width: subWidth,
             height: subHeight  
         } , this.maxLevels, this.maxParticles  , nextLevel);
-		this.nodes[1].draw();
+
+
 
         //NODO INFERIOR IZQUIERDO
         this.nodes[2] = new Quadtree({
@@ -154,7 +151,7 @@ class Quadtree{
             width: subWidth,
             height: subHeight  
         } , this.maxLevels , this.maxParticles ,  nextLevel);
-        this.nodes[2].draw();
+   
 
         //NODO INFERIOR DERECHO
         this.nodes[3] = new Quadtree({
@@ -162,15 +159,22 @@ class Quadtree{
             y   : y + subHeight,
             width: subWidth,
             height: subHeight  
-		} , this.maxLevels , this.maxParticles , nextLevel);
-        this.nodes[3].draw();
+        } , this.maxLevels , this.maxParticles , nextLevel);
+
+        if(DRAW_TREE){
+            this.nodes[0].draw();
+            this.nodes[1].draw();
+            this.nodes[2].draw();
+            this.nodes[3].draw();
+        }
 	};
 
     draw(){
 		let canvas = document.querySelector("#canvas");
         let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "red";
-		ctx.strokeRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+        ctx.strokeStyle = COLOR_TREE;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+ 
     };
-    
 }

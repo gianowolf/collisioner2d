@@ -1,7 +1,3 @@
-const MAX_PARTICLES = 4;
-const MAX_LEVELS = 7;
-const LVL_CERO = 0;
-
 class Admin{
 
     constructor(){
@@ -9,23 +5,22 @@ class Admin{
         this.particulas_inmoviles = [];
         this.arbol;
         this.total_particulas;
+        this.collisioner = new Collisioner();
     }
 
-    generarParticulas(cantidad,cantidad_inmoviles){
+    generarParticulas(){
 
         //moviles
-        for(var i = 0; i < cantidad - cantidad_inmoviles; i++){
-            this.particulas_moviles.push(new Particle(false));
+        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES; i++){
+            this.particulas_moviles.push(new Particle_movil(HEALTHY));
         }
 
+        this.particulas_moviles.push(new Particle_movil(SICK));
 
         //inmoviles-cuarentena
-        for(var i = 0; i < cantidad_inmoviles; i++){
-            this.particulas_inmoviles.push(new Particle(true));
-        }
-
-        this.total_particulas = cantidad;
-
+        for(var i = 0; i < CANT_INMOVILES; i++){
+            this.particulas_inmoviles.push(new Particle_inmovil(HEALTHY));
+        }        
     }
 
     generarArbol(canvasWidth , canvasHeight){
@@ -39,22 +34,23 @@ class Admin{
     };
 
 
+
     refresh(){
         
-
         //limpiamos el arbol cada frame 
         this.arbol.clear();
 
         //inserto INMOVILES
-        for(let i = 0; i < this.particulas_inmoviles.length; i++){
+        for(let i = 0; i < CANT_INMOVILES; i++){
             this.arbol.insert(this.particulas_inmoviles[i]);  
         }
 
         //inserto MOVILES
         for(let i = 0 ; i < this.particulas_moviles.length ; i++){
-            this.arbol.insert(this.particulas_moviles[i])
+            this.arbol.insert(this.particulas_moviles[i]);
         }
 
+        this.collisioner.gestionarColision(this.particulas_moviles, this.arbol);
 
         //dibujo y muevo las particulas MOVILES
         for(let i = 0 ; i < this.particulas_moviles.length ; i++){
@@ -65,8 +61,7 @@ class Admin{
             this.particulas_inmoviles[i].draw();
         }
 
-        
-    };
-
+        stats.drawData();
+    }
 
 }

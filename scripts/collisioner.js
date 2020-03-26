@@ -1,54 +1,30 @@
-class Collisioner{
+class Collisioner
+{
+    constructor(){}
 
-
-    constructor(movibles,arbol){
-        this.collisionTree = arbol;
-        this.particulas = movibles;
-       
-    }
-
-    refresh(){
-        //recorre todas las particulas
-        for(let i = 0; i < this.particulas.length; i++){
-            //pide las posibles colisiones al arbol
-            let posibles_colisiones = this.collisionTree.detectObjects(this.particulas);
-
-            //recorre el arreglo de posibles colisiones 
-            for(let j = 0; j < posibles_colisiones.length ; j++){
+    gestionarColision(particulas_a_calcular , arbol)
+    {
+        for (let i = 0 ; i < particulas_a_calcular.length ; i++) 
+        { 
+            let posibles_colisiones = arbol.detectObjects(particulas_a_calcular[i], arbol);
+            {
                 
-                if(this.interseccion(this.particulas[i] , posibles_colisiones[j])){
-                    this.colision();
+                for (let j = 0; j < posibles_colisiones.length; j++) 
+                {
+                    let p1 = particulas_a_calcular[i];
+                    let p2 = posibles_colisiones[j];
+                    if(p1 != p2)
+                    {
+                        if(p1.x-RADIO < p2.x+RADIO 
+                            && p1.x+RADIO > p2.x-RADIO 
+                            && p1.y-RADIO < p2.y+RADIO 
+                            && p1.y+RADIO > p2.y-RADIO)
+                            {
+                                Particle.versus(p1,p2);
+                            }
+                    }
                 }
-            }           
-
+            }
         }
     }
-
-    //le pregunta al arbol si la particula debe collisionar
-    interseccion(p1 , p2){
-
-        let radio = Math.pow(p1.getRadio(),2);
-        let distancia = Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2)
-        
-        if(distancia <= radio){
-            return true;
-        }
-
-        return false;
-    }
-
-    //Funcion calcular colisiones
-    colision(p1,p2){
-
-        if(p2.esInmovil()){
-            
-        }
-        //si es movil, rebota
-        //si no es movil, se queda en el lugar
-        //calcula nuevas direcciones
-        //move()
-    }
-
-
-
 }
