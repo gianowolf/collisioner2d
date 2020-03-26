@@ -10,6 +10,15 @@ canvas {
     margin: 0 auto; 
 }
 
+a{
+    color:fff;
+}
+
+a:hover{
+    color: #FE6C2C;
+    transition: .3s;
+}
+
 #interfaz, .menu, .datos{
     position:fixed;
 }
