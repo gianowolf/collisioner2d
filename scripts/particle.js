@@ -10,29 +10,25 @@ class Particle{
     {
         // Random Age particle
         let rand = Math.random() * 10;
-        if(rand < 2.5)
-        {
-            this.edad = 0;
-        }
-        else if(rand < 8.5){
+        if(rand < 9){
             this.edad = 1;
         } else{
             this.edad = 2;
         }
 
-        //Creates particle in random-position
-        this.x = RADIO + Math.random() * (document.getElementById("canvas").clientWidth - 2 *RADIO) ;
-        this.y = RADIO + Math.random() * (document.getElementById("canvas").clientHeight - 2* RADIO);
-
+    
         //State: sick | healthy
         this.state = state; 
-
         if(state) //zero-patient
         {
+            this.x = canvas.clientWidth/2;
+            this.y = canvas.clientHeight/2;
             this.imSick();
             total_sick++;
-
         }else{
+             //Creates particle in random-position
+            this.x = RADIO + Math.random() * (canvas.clientWidth  - 2 *RADIO);
+            this.y = RADIO + Math.random() * (canvas.clientHeight - 2* RADIO);
             total_healthy++;
         }
     }
@@ -43,10 +39,11 @@ class Particle{
     {
         total_sick++;
         total_healthy--;
+        let random = Math.random();
         switch (this.edad) {
 
             //Anciano
-            case 0:
+            case 2:
                 if(this.isSatured()){ 
                     setTimeout(() => { 
                         this.state = DECEASED;
@@ -55,7 +52,7 @@ class Particle{
                         total_sick--;
                     }, TIME_SICK)}
                 else{
-                    if(Math.random() < 0.3){
+                    if(random < 0.3){
                         setTimeout(() => { 
                             this.state = DECEASED;
                             total_deceased++;
@@ -70,19 +67,26 @@ class Particle{
                             total_sick--;
                         }, TIME_SICK)
                     }
-
                 }
                 break;
 
             default:
-                if(this.isSatured()){ 
-                    if(Math.random() < 0.1){
+                if(this.isSatured())
+                { 
+                    if( random< 0.1){
                         setTimeout(() => { 
                             this.state = DECEASED;
                             total_deceased++;
                             this.dx = 0; this.dy = 0;
                             total_sick--;
                         }, TIME_SICK)
+                    }
+                    else {
+                    setTimeout(() => { 
+                        this.state = RECOVERED;
+                        total_recovered++;
+                        total_sick--;
+                    }, TIME_SICK)
                     }
                 }
                 else{
@@ -109,8 +113,8 @@ class Particle{
      
     }
 
-    static isSatured(){
-        if(total_sick/CANT_PARTICULAS > 0.3){
+    isSatured(){
+        if(total_sick/CANT_PARTICULAS > 0.15){
             return true;
         }
         else{
@@ -126,11 +130,6 @@ class Particle{
             this.state = 1;
             this.imSick();
         }
-    }
-
-
-    isSatured(){
-        return false;
     }
 
 

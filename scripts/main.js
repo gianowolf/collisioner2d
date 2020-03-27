@@ -5,7 +5,7 @@
 const CANT_PARTICULAS = 6000;
 const CANT_INMOVILES  = 0;
 const SPEED           = 2
-const RADIO           = 2
+const RADIO           = 1
 const RADIO2          = RADIO * 2
 
 //Tree Setup
