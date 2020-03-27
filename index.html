@@ -9,20 +9,71 @@
 </head>
 
 <body>
-    <div id="interfaz">
-        <nav class="menu">
-            <ul>
-                <li><a href="index.html">Simulation</a></li>
-                <li><a href="">Info</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="https://github.com/gianowolf/collisioner2d">GitHub</a></li>
-            </ul>
-        </nav>
+    
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Simulation</a></li>
+            <li onclick="mostrarInfo()">Info</li>
+            <li onclick="mostrarContact()">Contact</li>
+            <li><a href="https://github.com/gianowolf/collisioner2d">GitHub</a></li>
+        </ul>
+    </nav>
 
         
         <canvas id="canvas"></canvas>
     </div>
+    
+    <!-- CONTACT -->
 
+    <div class="contact">
+
+        <div class="perfil">
+            <img class="img-perfil" src="img/nico.png"></img>
+            <div class="data">
+                <h2>Nicolas cavilla</h2>
+                <div class="redes">
+                    <a href=""><img src="img/icons/instagram.png"></a>
+                    <a href=""><img src="img/icons/github.png"></a>
+                    <a href=""><img src="img/icons/linkedin.png"></a>
+                    <a href=""><img src="img/icons/email.png"></a>
+                </div>
+                <small>UNLU Information Systems student</small>
+            </div>
+        </div>
+
+        <div class="perfil">
+            <img class="img-perfil" src="img/gian.png"></img>
+            <div class="data">
+                <h2>Gian Franco Lasala</h2>
+                <div class="redes">
+                    <a href=""><img src="img/icons/instagram.png"></a>
+                    <a href=""><img src="img/icons/github.png"></a>
+                    <a href=""><img src="img/icons/linkedin.png"></a>
+                    <a href=""><img src="img/icons/email.png"></a>
+                </div>
+                <small>UNLP Computing Engineer student</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FIN CONTACT -->
+
+
+    <!-- INFO -->
+
+    <div class="info">
+        <h2>Info</h2>
+        <div class="text">
+            Escribir Info
+        </div>
+    </div>
+    
+    <!-- FIN INFO -->
+
+    <canvas id="canvas"></canvas>
+    
+    <script src="js/index.js"></script>
     <script src="scripts/stats_controller.js"></script>
     <script src="scripts/arbol.js"></script>
     <script src="scripts/particle.js"></script>
