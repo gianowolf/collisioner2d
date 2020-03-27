@@ -44,7 +44,7 @@ class Particle{
 
             //Anciano
             case 2:
-                if(this.isSatured()){ 
+                if(Particle.isSatured()){ 
                     setTimeout(() => { 
                         this.state = DECEASED;
                         total_deceased++;
@@ -71,9 +71,9 @@ class Particle{
                 break;
 
             default:
-                if(this.isSatured())
+                if(Particle.isSatured())
                 { 
-                    if( random< 0.1){
+                    if( random< 0.25){
                         setTimeout(() => { 
                             this.state = DECEASED;
                             total_deceased++;
@@ -113,7 +113,7 @@ class Particle{
      
     }
 
-    isSatured(){
+    static isSatured(){
         if(total_sick/CANT_PARTICULAS > 0.15){
             return true;
         }

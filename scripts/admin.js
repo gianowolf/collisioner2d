@@ -6,6 +6,7 @@ class Admin{
         this.arbol;
         this.total_particulas;
         this.collisioner = new Collisioner();
+        this.stats = new Stats_controller();
     }
 
     generarParticulas(){
@@ -60,8 +61,9 @@ class Admin{
         for (let i = 0; i < this.particulas_inmoviles.length; i++) {
             this.particulas_inmoviles[i].draw();
         }
-
-        stats.drawData();
+        
+        this.stats.drawData();
+        
     }
 
 }

@@ -2,10 +2,10 @@
 *CONSTANTS
 */
 //Particles Setup 
-const CANT_PARTICULAS = 100;
+const CANT_PARTICULAS = 3000;
 const CANT_INMOVILES  = 0;
 const SPEED           = 2
-const RADIO           = 10
+const RADIO           = 3
 const RADIO2          = RADIO * 2
 
 //Tree Setup
@@ -13,6 +13,7 @@ const MAX_PARTICLES = 5
 const MAX_LEVELS    = 5
 const LVL_CERO      = 0
 const DRAW_TREE     = false;
+
 //Status
 const HEALTHY   = 0
 const SICK      = 1
@@ -32,18 +33,21 @@ const COLOR_TREE        = "#181818"
 
 //Times
 const TIME_SICK   = 4 * 1000 // 4s
-const TIME_FRAMES = 20       // 20ms     
+const TIME_FRAMES = 20       // 20ms   
+const CHART_REFRESH = 500
 
 
 
 /*
 * MAIN PROGRAM
 */
-var canvas = document.getElementById("canvas");
+let canvas = document.getElementById("canvas");
+let refresh_curve = true;
 cv_width = window.innerWidth;
 cv_height = window.innerHeight;
 canvas.setAttribute("width",cv_width);
 canvas.setAttribute("height",cv_height);
+
 
 
 var ctx = canvas.getContext("2d");
@@ -60,8 +64,12 @@ function loop()
 {
     //Limpiamos el canvas
     ctx.clearRect(0 , 0 , canvas.clientWidth , canvas.clientHeight);
+    
     //Movimiento de particulas
-    admin.refresh();
+    admin.refresh()
 }
 
 setInterval(loop , TIME_FRAMES);
+setInterval(() => {
+    refresh_curve = true
+}, CHART_REFRESH);

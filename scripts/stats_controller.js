@@ -2,14 +2,10 @@ class Stats_controller{
     
     constructor(){
         
-        //Bar Chart para contar las persoans
+        this.data = [];
 
     }
 
-    refreshData(cant_healthy , cant_sick , cant_recovered , cant_deceased){
-
-
-    }
 
     drawData(){
 
@@ -60,6 +56,9 @@ class Stats_controller{
         ctx.stroke();
         ctx.closePath();
 
+        /*
+        * Grafico 1
+        */
         //Barras grafico 1
         let bar_width = graph_width * 0.12,
             separator = graph_width * 0.1;
@@ -76,12 +75,45 @@ class Stats_controller{
 
         ctx.fillStyle = COLOR_RECOVERED;
         ctx.fillRect( (x_start + 2 * bar_width + 3 * separator) , (y1_start + graph_height) , (bar_width) , - (total_recovered / CANT_PARTICULAS) * graph_height);
-
         
         ctx.fillStyle = COLOR_DECEASED;
         ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y1_start + graph_height) , (bar_width) , - (total_deceased / CANT_PARTICULAS) * graph_height);
         //Barra Healthy
 
+
+        /*
+        * Grafico 2
+        */
+        let dx_width = (graph_width + 1 / this.data.length),
+        offset = 5,
+        sat   = 0.25 * graph_height
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = COLOR_GRAPH_AXIS;
+        ctx.lineWidth = line_width;
+
+        /*
+        if(Particle.isSatured()){
+            ctx.strokeStyle = COLOR_SICK;
+        }
+        else{
+            ctx.strokeStyle = COLOR_RECOVERED;
+        }*/
+
+        ctx.strokeStyle = COLOR_SICK;
+        ctx.lineWidth = 4;
+
+        if(refresh_curve){
+            this.data.push((total_sick / CANT_PARTICULAS) * graph_height)
+            refresh_curve = false;
+        }
+
+        ctx.moveTo(x_start + separator , y2_start + graph_height - this.data[0] )
+        for (let i = 1; i < this.data.length; i++) {
+            ctx.lineTo(x_start + offset * (i+1) ,  y2_start + graph_height - this.data[i])
+        }
+        
+        ctx.stroke();
+        console.log(this.data.length)
 
 
 
