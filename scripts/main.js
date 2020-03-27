@@ -2,10 +2,10 @@
 *CONSTANTS
 */
 //Particles Setup 
-const CANT_PARTICULAS = 100;
+const CANT_PARTICULAS = 6000;
 const CANT_INMOVILES  = 0;
 const SPEED           = 2
-const RADIO           = 10
+const RADIO           = 2
 const RADIO2          = RADIO * 2
 
 //Tree Setup
@@ -31,7 +31,7 @@ const COLOR_TREE        = "#181818"
 
 
 //Times
-const TIME_SICK   = 4 * 1000 // 4s
+const TIME_SICK   = 8 * 1000 // 4s
 const TIME_FRAMES = 20       // 20ms     
 
 

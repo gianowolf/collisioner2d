@@ -10,43 +10,32 @@ canvas {
     margin: 0 auto; 
 }
 
-a{
-    color:fff;
+a, li{
+    color:#fff;
+    text-decoration: none;
 }
 
-a:hover{
+a:hover, li:hover{
     color: #FE6C2C;
     transition: .3s;
 }
 
-#interfaz, .menu, .datos{
-    position:fixed;
-}
-
-
-#interfaz{
-    background: rgba(0, 0, 0, 0);
-    width: 100vw;
-    height: 100vh;
-}
-
 .menu{
     background-color: none;
+    position:fixed;
     color: #fff;
     display:flex;  
     justify-content: center;
-    top: 50px;
+    padding-top: 50px;
     width: 100%;
 }
 
 li{
+    cursor: pointer;
     display: inline-block;
-    padding:  20px 0;
+    padding:  20px 30px;
 }
 
-li a{
-    padding: 20px 30px;
-}
 
 
 
@@ -63,4 +52,110 @@ li a{
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 20px;
+}
+
+
+.contact, .info{
+    background: #201C1C;
+    box-shadow: 0px 3px 6px #000000;
+    color: #707070;
+    padding: 1.3em;
+    position: fixed;
+}
+
+/* ----------------- CONTACT STILES ----------------- */
+
+.contact{    
+    border-radius: 30px;
+    display: none;
+    font-weight: bold;
+    justify-content: center;
+    top:0;
+    width: 60%;
+}
+
+.contact div:nth-child(1){
+    border-right: solid 1px #303030;
+    margin-right: 20px;
+}
+
+.img-perfil{
+    border-radius: 100%;
+    max-width: 192px;
+    width: 30%;
+}
+
+.data{
+    margin-left: 15px;
+}
+
+.perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.perfil h2{
+    font-size: 22px;
+}
+
+.redes{
+    margin: 6px 0;
+}
+
+.redes img{
+    display: inline-block;
+    margin-right: 12px;
+    width: 9%;
+}
+
+.data small{
+    font-size: 14px;
+    color: #404040;
+}
+
+
+
+/* ----------------- INFO STILES ----------------- */
+
+.info{
+    border-radius: 10px;
+    width: 50%;
+    display: none;
+}
+
+.text{
+    overflow-y: scroll;
+    height: 300px;
+}
+
+.info h2{
+    border-bottom: solid 1px #404040;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+    right: 0;
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #202020; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #171717; 
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #101010; 
 }
