@@ -111,7 +111,7 @@ class Particle{
     }
 
     static isSatured(){
-        if(total_sick/CANT_PARTICULAS > 0.25){
+        if(total_sick/CANT_PARTICULAS > 0.15){
             return true;
         }
         else{

@@ -8,9 +8,38 @@ class Stats_controller{
 
 
     drawData(){
+        this.drawInput();
         this.drawC1();
         this.drawC2();
     }
+
+    drawInput(){
+        
+        let 
+            x_start = cv_width * 0.05,
+            y_start = cv_height * 0.3,
+
+            graph_height= cv_height * 0.15,
+            graph_width = cv_width * 0.15,
+
+            line_width= 1.5,
+            sobra = 15,
+
+            x_background = x_start - sobra,
+            y_background = y_start - sobra,
+            back_height = graph_height + 2 * sobra,
+            back_width =  graph_width + 2 * sobra;
+
+        //Background    
+        ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
+        ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
+        
+        //Axis
+        ctx.moveTo(x_start , y_start + graph_height)
+        ctx.lineTo(x_start + graph_width , y_start + graph_height)
+    
+    }
+
 
     // Bar Chart
     drawC1(){
@@ -34,6 +63,7 @@ class Stats_controller{
    ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
 
 
+   
  
 
 
@@ -83,6 +113,7 @@ class Stats_controller{
     }
 
 
+    //Curve Chart
     drawC2(){
          
         let x_start = cv_width * 0.15,
@@ -92,7 +123,7 @@ class Stats_controller{
             graph_height= cv_height * 0.15,
             graph_width = cv_width * 0.7,
 
-            sat   = 0.25 * graph_height,
+            sat   = 0.15 * graph_height,
 
             dx_width = graph_width / 400, //ancho de cada barra
             offset = dx_width - 1 //para que no queden espacios en blanco
