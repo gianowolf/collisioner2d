@@ -2,10 +2,10 @@
 *CONSTANTS
 */
 //Particles Setup 
-const CANT_PARTICULAS = 6000;
+const CANT_PARTICULAS = 7000;
 const CANT_INMOVILES  = 0;
 const SPEED           = 2
-const RADIO           = 1
+const RADIO           = 2
 const RADIO2          = RADIO * 2
 
 //Tree Setup
@@ -24,8 +24,8 @@ const COLOR_BACKGROUND  = "#333333"
 const COLOR_GRAPH_AXIS  = "#666666"
 const COLOR_GRAPH_BACK  = "#111111"
 const COLOR_HEALTHY     = "#999999"
-const COLOR_SICK        = "#CC6666"
-const COLOR_RECOVERED   = "#6699CC"
+const COLOR_SICK        = "#FF0000"
+const COLOR_RECOVERED   = "#0049FF"
 const COLOR_DECEASED    = "#000000"
 const COLOR_TREE        = "#181818"    
 
