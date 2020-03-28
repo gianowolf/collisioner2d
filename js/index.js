@@ -8,10 +8,20 @@ let nav = document.querySelector("nav");
 let bContact = false;
 let bInfo = false;
 
-var div = document.querySelector("#input_div");
-var range_1 =  document.querySelector("#slider_cant_particulas");
-var range_2 =  document.querySelector("#slider_cant_inmoviles");
-var range_3 =  document.querySelector("#slider_radio_particulas");
+let div = document.querySelector("#input_div");
+let range_1 =  document.querySelector("#slider_cant_particulas");
+let range_2 =  document.querySelector("#slider_cant_inmoviles");
+let range_3 =  document.querySelector("#slider_radio_particulas");
+
+let botonera = document.querySelector("#botonera");
+
+let p_cant =  document.querySelector("#p-cant");
+let p_inmo =  document.querySelector("#p-inmo");
+let p_radi =  document.querySelector("#p-radi");
+
+let pause = document.querySelector("#pause");
+let play = document.querySelector("#play");
+let restart = document.querySelector("#restart");
 
 document.body.addEventListener('click', ocultar);
 

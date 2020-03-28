@@ -4,6 +4,12 @@
     margin: 0;
     font-family: Roboto;
 }
+
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 canvas { 
     background: #25252a;
     display: block; 
@@ -133,8 +139,8 @@ li{
 }
 
 .control-button svg{
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
 
 .control-button:hover svg{
@@ -196,8 +202,8 @@ svg{
 
 /* ------------------------- RANGE ----------------------- */
 
-#input_div{
-    position: fixed;
+#input_div, #botonera{
+    position: absolute;
     font-size: 14px;
     color: #ccc;
     top: 0;

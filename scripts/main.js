@@ -7,13 +7,8 @@ let cant_particulas = 3000;
 let cant_inmobiles  = 0;
 let radio           = 2;
 
-
 const SPEED           = 2
-<<<<<<< HEAD
 const RADIO2          = radio * 2
-=======
-const RADIO           = 2
->>>>>>> 9c46c628306c567f9c1739feea1972a47f4a99c3
 
 //Tree Setup
 const MAX_PARTICLES = 5
@@ -58,6 +53,25 @@ canvas.setAttribute("height",cv_height);
 var ctx = canvas.getContext("2d");
 
 var admin = new Admin();
+
+pause.addEventListener('click',fPause);
+play.addEventListener('click',fPlay);
+restart.addEventListener('click',fRestart);
+
+function fPause(){
+	admin.pause();
+}
+
+function fPlay(){
+	admin.play();
+}
+
+function fRestart(){
+	admin.restart();
+}
+
+
+
 
 stats = new Stats_controller();
 
