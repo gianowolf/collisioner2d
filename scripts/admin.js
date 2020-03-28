@@ -6,12 +6,13 @@ class Admin{
         this.arbol;
         this.total_particulas;
         this.collisioner = new Collisioner();
+        this.stats = new Stats_controller();
     }
 
     generarParticulas(){
 
         //moviles
-        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES; i++){
+        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES - 1; i++){
             this.particulas_moviles.push(new Particle_movil(HEALTHY));
         }
 
@@ -60,8 +61,9 @@ class Admin{
         for (let i = 0; i < this.particulas_inmoviles.length; i++) {
             this.particulas_inmoviles[i].draw();
         }
-
-        stats.drawData();
+        
+        this.stats.drawData();
+        
     }
 
 }
