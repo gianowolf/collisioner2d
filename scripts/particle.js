@@ -27,8 +27,8 @@ class Particle{
             this.imSick();
         }else{
              //Creates particle in random-position
-            this.x = RADIO + Math.random() * (canvas.clientWidth  - 2 *RADIO);
-            this.y = RADIO + Math.random() * (canvas.clientHeight - 2* RADIO);
+            this.x = radio + Math.random() * (canvas.clientWidth  - 2 * radio);
+            this.y = radio + Math.random() * (canvas.clientHeight - 2 * radio);
         }
     }
 
@@ -111,7 +111,7 @@ class Particle{
     }
 
     static isSatured(){
-        if(total_sick/CANT_PARTICULAS > 0.15){
+        if(total_sick/cant_particulas > 0.15){
             return true;
         }
         else{
@@ -166,20 +166,20 @@ class Particle{
         ctx.beginPath();
 
         ctx.fillStyle = this.getColor();
-        ctx.arc(this.x, this.y, RADIO, 0, Math.PI*2, true);
+        ctx.arc(this.x, this.y, radio, 0, Math.PI*2, true);
 
         ctx.fill();
     }
 
     move(){
         //Verificamos que la particula no sobrepase horizontalmente 
-        if(this.x + this.dx + RADIO >= canvas.clientWidth || this.x + this.dx - RADIO<= 0)
+        if(this.x + this.dx + radio >= canvas.clientWidth || this.x + this.dx - radio<= 0)
         {
 			this.dx = -this.dx;
         }
         
         //Verificamos que la particula no sobrepase verticalmente
-        if(this.y + this.dy + RADIO >= canvas.clientHeight || this.y + this.dy - RADIO <= 0)
+        if(this.y + this.dy + radio >= canvas.clientHeight || this.y + this.dy - radio <= 0)
         {
 			this.dy = -this.dy;
 		}
@@ -194,7 +194,7 @@ class Particle{
 
     static versus(p1,p2)
     {
-        let radioCuadrado = (RADIO + RADIO) * (RADIO + RADIO);
+        let radioCuadrado = (radio + radio) * (radio + radio);
         let distanciaX = p2.x - p1.x;
         let distanciaY = p2.y - p1.y;
         //Pitagoras

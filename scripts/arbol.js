@@ -20,10 +20,10 @@ class Quadtree{
             verticalMidpoint    = this.bounds.x + (this.bounds.width/2),
             horizontalMidpoint  = this.bounds.y + (this.bounds.height/2);
         
-        var startIsNorth = particula.y - RADIO < horizontalMidpoint,
-            startIsWest  = particula.x - RADIO < verticalMidpoint,
-            endIsEast    = particula.x + RADIO > verticalMidpoint,
-            endIsSouth   = particula.y + RADIO > horizontalMidpoint;
+        var startIsNorth = particula.y - radio < horizontalMidpoint,
+            startIsWest  = particula.x - radio < verticalMidpoint,
+            endIsEast    = particula.x + radio > verticalMidpoint,
+            endIsSouth   = particula.y + radio > horizontalMidpoint;
         
         //CUADRANTE SUPERIOR DERECHO
         if(startIsNorth && endIsEast){

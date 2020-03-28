@@ -3,11 +3,13 @@
 */
 //Particles Setup 
 
-const CANT_PARTICULAS = 3000;
-const CANT_INMOVILES  = 0;
+let cant_particulas = 3000;
+let cant_inmobiles  = 0;
+let radio           = 2;
+
+
 const SPEED           = 2
-const RADIO           = 3
-const RADIO2          = RADIO * 2
+const RADIO2          = radio * 2
 
 //Tree Setup
 const MAX_PARTICLES = 5

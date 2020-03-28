@@ -12,14 +12,14 @@ class Admin{
     generarParticulas(){
 
         //moviles
-        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES - 1; i++){
+        for(var i = 0; i < cant_particulas - cant_inmobiles - 1; i++){
             this.particulas_moviles.push(new Particle_movil(HEALTHY));
         }
 
         this.particulas_moviles.push(new Particle_movil(SICK));
 
         //inmoviles-cuarentena
-        for(var i = 0; i < CANT_INMOVILES; i++){
+        for(var i = 0; i < cant_inmobiles; i++){
             this.particulas_inmoviles.push(new Particle_inmovil(HEALTHY));
         }        
     }
@@ -42,7 +42,7 @@ class Admin{
         this.arbol.clear();
 
         //inserto INMOVILES
-        for(let i = 0; i < CANT_INMOVILES; i++){
+        for(let i = 0; i < cant_inmobiles; i++){
             this.arbol.insert(this.particulas_inmoviles[i]);  
         }
 

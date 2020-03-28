@@ -14,7 +14,9 @@ class Stats_controller{
     }
 
     drawInput(){
+
         
+
         let 
             x_start = cv_width * 0.05,
             y_start = cv_height * 0.3,
@@ -30,13 +32,16 @@ class Stats_controller{
             back_height = graph_height + 2 * sobra,
             back_width =  graph_width + 2 * sobra;
 
+        div.style.top = y_start+"px";
+        div.style.left = x_start+"px";
+        
+        range_1.style.width = graph_width+"px";
+        range_2.style.width = graph_width+"px";
+        range_3.style.width = graph_width+"px";
+
         //Background    
         ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
         ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
-        
-        //Axis
-        ctx.moveTo(x_start , y_start + graph_height)
-        ctx.lineTo(x_start + graph_width , y_start + graph_height)
     
     }
 
@@ -82,26 +87,26 @@ class Stats_controller{
    //healthy
    ctx.beginPath()
    ctx.fillStyle = COLOR_HEALTHY;
-   ctx.fillRect( (x_start + separator) , (y_start + graph_height) , (bar_width) , - (total_healthy / CANT_PARTICULAS) * graph_height);
+   ctx.fillRect( (x_start + separator) , (y_start + graph_height) , (bar_width) , - (total_healthy / cant_particulas) * graph_height);
    ctx.font =  '.8rem Roboto'
    ctx.textAlign = "center"
    ctx.fillStyle = "white"
    ctx.fillText(`${total_healthy}` , separator*1 + x_start + half_point , y_start + graph_height + 20 )
 
    ctx.fillStyle = COLOR_SICK;
-   ctx.fillRect( (x_start + 1*bar_width + 2 *separator) , (y_start + graph_height) , (bar_width) , - (total_sick / CANT_PARTICULAS) * graph_height);
+   ctx.fillRect( (x_start + 1*bar_width + 2 *separator) , (y_start + graph_height) , (bar_width) , - (total_sick / cant_particulas) * graph_height);
    ctx.textAlign = "center"
    ctx.fillStyle = "white"
    ctx.fillText(`${total_sick}` , separator * 2  + bar_width * 1 + x_start + half_point , y_start + graph_height + 20 )
 
    ctx.fillStyle = COLOR_RECOVERED;
-   ctx.fillRect( (x_start + 2*bar_width + 3 * separator) , (y_start + graph_height) , (bar_width) , - (total_recovered / CANT_PARTICULAS) * graph_height);
+   ctx.fillRect( (x_start + 2*bar_width + 3 * separator) , (y_start + graph_height) , (bar_width) , - (total_recovered / cant_particulas) * graph_height);
    ctx.textAlign = "center"
    ctx.fillStyle = "white"
    ctx.fillText(`${total_recovered}` , separator * 3 +  bar_width * 2 + x_start + half_point , y_start + graph_height + 20 )
 
    ctx.fillStyle = COLOR_DECEASED;
-   ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y_start + graph_height) , (bar_width) , - (total_deceased / CANT_PARTICULAS) * graph_height);
+   ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y_start + graph_height) , (bar_width) , - (total_deceased / cant_particulas) * graph_height);
    ctx.textAlign = "center"
    ctx.fillStyle = "white"
    ctx.fillText(`${total_deceased}` , separator * 4 +  bar_width * 3 + x_start + half_point , y_start + graph_height + 20 )
@@ -129,10 +134,10 @@ class Stats_controller{
             offset = dx_width - 1 //para que no queden espacios en blanco
 
         const input = [4];
-        input[0]= (total_healthy   / CANT_PARTICULAS) * graph_height
-        input[1]= (total_sick      / CANT_PARTICULAS) * graph_height
-        input[2]= (total_recovered / CANT_PARTICULAS) * graph_height
-        input[3]= (total_deceased  / CANT_PARTICULAS) * graph_height
+        input[0]= (total_healthy   / cant_particulas) * graph_height
+        input[1]= (total_sick      / cant_particulas) * graph_height
+        input[2]= (total_recovered / cant_particulas) * graph_height
+        input[3]= (total_deceased  / cant_particulas) * graph_height
    
 
         //Background    

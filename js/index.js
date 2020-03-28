@@ -1,13 +1,17 @@
-var contact = document.querySelector(".contact");
-var menu = document.querySelector(".menu");
-var info = document.querySelector(".info");
+let contact = document.querySelector(".contact");
+let menu = document.querySelector(".menu");
+let info = document.querySelector(".info");
 
-var canvas = document.querySelector("#canvas");
-var nav = document.querySelector("nav");
+let canvas = document.querySelector("#canvas");
+let nav = document.querySelector("nav");
 
-var bContact = false;
-var bInfo = false;
+let bContact = false;
+let bInfo = false;
 
+var div = document.querySelector("#input_div");
+var range_1 =  document.querySelector("#slider_cant_particulas");
+var range_2 =  document.querySelector("#slider_cant_inmoviles");
+var range_3 =  document.querySelector("#slider_radio_particulas");
 
 document.body.addEventListener('click', ocultar);
 

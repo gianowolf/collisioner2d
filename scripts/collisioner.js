@@ -15,10 +15,10 @@ class Collisioner
                     let p2 = posibles_colisiones[j];
                     if(p1 != p2)
                     {
-                        if(p1.x-RADIO < p2.x+RADIO 
-                            && p1.x+RADIO > p2.x-RADIO 
-                            && p1.y-RADIO < p2.y+RADIO 
-                            && p1.y+RADIO > p2.y-RADIO)
+                        if(p1.x-radio < p2.x+radio 
+                            && p1.x+radio > p2.x-radio 
+                            && p1.y-radio < p2.y+radio 
+                            && p1.y+radio > p2.y-radio)
                             {
                                 Particle.versus(p1,p2);
                             }
