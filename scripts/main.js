@@ -5,8 +5,7 @@
 const CANT_PARTICULAS = 3000;
 const CANT_INMOVILES  = 0;
 const SPEED           = 2
-const RADIO           = 3
-const RADIO2          = RADIO * 2
+const RADIO           = 2
 
 //Tree Setup
 const MAX_PARTICLES = 5
@@ -68,3 +67,4 @@ function loop()
 }
 
 setInterval(loop , TIME_FRAMES);
+

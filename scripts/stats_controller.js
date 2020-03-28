@@ -6,7 +6,6 @@ class Stats_controller{
 
     }
 
-
     drawData(){
         this.drawInput();
         this.drawC1();
@@ -16,27 +15,24 @@ class Stats_controller{
     drawInput(){
         
         let 
-            x_start = cv_width * 0.05,
-            y_start = cv_height * 0.3,
+            x_start = cv_width * 0.05, //posicion x slider
+            y_start = cv_height * 0.3, //posicion y slider
 
-            graph_height= cv_height * 0.15,
-            graph_width = cv_width * 0.15,
+            graph_height= cv_height * 0.15, 
+            graph_width = cv_width * 0.15, //ancho de los sliders
 
             line_width= 1.5,
             sobra = 15,
 
-            x_background = x_start - sobra,
-            y_background = y_start - sobra,
-            back_height = graph_height + 2 * sobra,
-            back_width =  graph_width + 2 * sobra;
+            x_background = x_start - sobra,         //posicion x del input_div
+            y_background = y_start - sobra,         //posicion y del input_div
+            back_height = graph_height + 2 * sobra, //alto del input_div
+            back_width =  graph_width + 2 * sobra;  //ancho del input_div
 
         //Background    
         ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
         ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
         
-        //Axis
-        ctx.moveTo(x_start , y_start + graph_height)
-        ctx.lineTo(x_start + graph_width , y_start + graph_height)
     
     }
 
@@ -185,13 +181,11 @@ class Stats_controller{
 
 
 
-        ctx.font =  '1rem Roboto'
-        ctx.fillStyle = "white"
+        ctx.font =  'italic 300 1rem Roboto'
+        ctx.fillStyle = "#aaa"
         if (Particle.isSatured()){
-            ctx.fillText("System Colapsed" , x_start + graph_width * 0.05 + graph_width * 0.005 * Math.random() , y_start + graph_height * 0.3 + graph_height * 0.005 * Math.random())
-        }
-        else{
-            ctx.fillText("System is OK" , x_start + graph_width * 0.05 , y_start + graph_height * 0.3)
+            ctx.fillText("Colapsed" , x_start + graph_width * 0.05, y_start + graph_height * 0.3)
+            
         }
        
        
