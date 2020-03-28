@@ -116,6 +116,40 @@ li{
 }
 
 
+/*
+* Botonera
+*/
+#botonera{
+    display: flex;
+    align-items: center;
+}
+
+.control-button{
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.control-button svg{
+    height: 15px;
+    width: 15px;
+}
+
+.control-button:hover svg{
+    transform: scale(1.1);
+    color: white;
+}
+
+svg{
+    outline: none;
+    transition: 0.3s linear;
+}
+
+.control-button svg{
+    fill: #AAA;
+}
 
 /* ----------------- INFO STILES ----------------- */
 

@@ -9,7 +9,11 @@ let radio           = 2;
 
 
 const SPEED           = 2
+<<<<<<< HEAD
 const RADIO2          = radio * 2
+=======
+const RADIO           = 2
+>>>>>>> 9c46c628306c567f9c1739feea1972a47f4a99c3
 
 //Tree Setup
 const MAX_PARTICLES = 5
@@ -71,3 +75,4 @@ function loop()
 }
 
 setInterval(loop , TIME_FRAMES);
+
