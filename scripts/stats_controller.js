@@ -14,29 +14,34 @@ class Stats_controller{
 
     drawInput(){
 
-        
+      let 
+        x_start = cv_width * 0.05, //posicion x slider
+        y_start = cv_height * 0.3, //posicion y slider
 
-        let 
-            x_start = cv_width * 0.05, //posicion x slider
-            y_start = cv_height * 0.3, //posicion y slider
+        graph_height= cv_height * 0.15, 
+        graph_width = cv_width * 0.15, //ancho de los sliders
 
-            graph_height= cv_height * 0.15, 
-            graph_width = cv_width * 0.15, //ancho de los sliders
+        line_width= 1.5,
+        sobra = 15,
 
-            line_width= 1.5,
-            sobra = 15,
-
-            x_background = x_start - sobra,         //posicion x del input_div
-            y_background = y_start - sobra,         //posicion y del input_div
-            back_height = graph_height + 2 * sobra, //alto del input_div
-            back_width =  graph_width + 2 * sobra;  //ancho del input_div
+        x_background = x_start - sobra,         //posicion x del input_div
+        y_background = y_start - sobra,         //posicion y del input_div
+        back_height = graph_height + 2 * sobra, //alto del input_div
+        back_width =  graph_width + 2 * sobra;  //ancho del input_div
 
         div.style.top = y_start+"px";
         div.style.left = x_start+"px";
-        
+
+        botonera.style.top = y_background+back_height+20+"px";
+        botonera.style.left = x_background+"px";
+
         range_1.style.width = graph_width+"px";
         range_2.style.width = graph_width+"px";
         range_3.style.width = graph_width+"px";
+
+        p_cant.innerHTML = "Cantidad particulas: "+cant_particulas;
+        p_inmo.innerHTML = "Cantidad particulas inmoviles: "+cant_inmobiles;
+        p_radi.innerHTML = "Radio particulas: "+radio;
 
         //Background    
         ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"

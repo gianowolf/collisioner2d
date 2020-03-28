@@ -7,7 +7,6 @@ let cant_particulas = 3000;
 let cant_inmobiles  = 0;
 let radio           = 2;
 
-
 const SPEED           = 2
 const RADIO           = 2
 
@@ -54,6 +53,25 @@ canvas.setAttribute("height",cv_height);
 var ctx = canvas.getContext("2d");
 
 var admin = new Admin();
+
+pause.addEventListener('click',fPause);
+play.addEventListener('click',fPlay);
+restart.addEventListener('click',fRestart);
+
+function fPause(){
+	admin.pause();
+}
+
+function fPlay(){
+	admin.play();
+}
+
+function fRestart(){
+	admin.restart();
+}
+
+
+
 
 stats = new Stats_controller();
 
