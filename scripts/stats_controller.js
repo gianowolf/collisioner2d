@@ -41,10 +41,7 @@ class Stats_controller{
         //Background    
         ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
         ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
-<<<<<<< HEAD
-=======
         
->>>>>>> 9c46c628306c567f9c1739feea1972a47f4a99c3
     
     }
 
