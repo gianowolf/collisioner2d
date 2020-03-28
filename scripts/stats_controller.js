@@ -8,120 +8,162 @@ class Stats_controller{
 
 
     drawData(){
+        this.drawC1();
+        this.drawC2();
+    }
 
-        //Backgrounds
-        let x_start = cv_width * 0.8,
+    // Bar Chart
+    drawC1(){
+        
+    let x_start = cv_width * 0.8,
+        y_start = cv_height * 0.3,
 
-            y1_start = cv_height * 0.3,
-            y2_start = cv_height * 0.6,
+        graph_height= cv_height * 0.15,
+        graph_width = cv_width * 0.15,
+
+        line_width= 1.5,
+        sobra = 15,
+
+        x_background = x_start - sobra,
+        y_background = y_start - sobra,
+        back_height = graph_height + 2 * sobra,
+        back_width =  graph_width + 2 * sobra;
+
+   //Background    
+   ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
+   ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
+
+
+ 
+
+
+   ctx.lineWidth = line_width
+   ctx.strokeStyle = COLOR_GRAPH_AXIS
+
+   ctx.stroke()
+   ctx.closePath()
+
+   let bar_width = graph_width * 0.12,
+       separator = graph_width * 0.1,
+       half_point = bar_width /2;
+
+   //conversiones: min=0 max=TOTAL_PARTICLES
+
+   //healthy
+   ctx.beginPath()
+   ctx.fillStyle = COLOR_HEALTHY;
+   ctx.fillRect( (x_start + separator) , (y_start + graph_height) , (bar_width) , - (total_healthy / CANT_PARTICULAS) * graph_height);
+   ctx.font =  '.8rem Roboto'
+   ctx.textAlign = "center"
+   ctx.fillStyle = "white"
+   ctx.fillText(`${total_healthy}` , separator*1 + x_start + half_point , y_start + graph_height + 20 )
+
+   ctx.fillStyle = COLOR_SICK;
+   ctx.fillRect( (x_start + 1*bar_width + 2 *separator) , (y_start + graph_height) , (bar_width) , - (total_sick / CANT_PARTICULAS) * graph_height);
+   ctx.textAlign = "center"
+   ctx.fillStyle = "white"
+   ctx.fillText(`${total_sick}` , separator * 2  + bar_width * 1 + x_start + half_point , y_start + graph_height + 20 )
+
+   ctx.fillStyle = COLOR_RECOVERED;
+   ctx.fillRect( (x_start + 2*bar_width + 3 * separator) , (y_start + graph_height) , (bar_width) , - (total_recovered / CANT_PARTICULAS) * graph_height);
+   ctx.textAlign = "center"
+   ctx.fillStyle = "white"
+   ctx.fillText(`${total_recovered}` , separator * 3 +  bar_width * 2 + x_start + half_point , y_start + graph_height + 20 )
+
+   ctx.fillStyle = COLOR_DECEASED;
+   ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y_start + graph_height) , (bar_width) , - (total_deceased / CANT_PARTICULAS) * graph_height);
+   ctx.textAlign = "center"
+   ctx.fillStyle = "white"
+   ctx.fillText(`${total_deceased}` , separator * 4 +  bar_width * 3 + x_start + half_point , y_start + graph_height + 20 )
    
-            graph_height= cv_height * 0.2,
-            graph_width = cv_width * 0.18,
-            line_width= 1.5;
 
-        ctx.beginPath();
-
-        let sobra = 20;
-        //Chart background
-        let x_background = x_start - sobra,
-            y1_background = y1_start - sobra,
-            y2_background = y2_start - sobra,
-            back_height = graph_height + 2 * sobra,
-            back_width =  graph_width + 2 * sobra;
-
-            
-        ctx.fillStyle = "rgba(0 , 0, 0, 0.2)"
-        ctx.fillRect(x_background , y1_background , back_width , back_height);
-        ctx.fillRect(x_background , y2_background , back_width , back_height);
-
-
-        
-        
-
-
-
-        //Ejes grafico 1
-        ctx.moveTo(x_start, y1_start);
-        ctx.lineTo(x_start , y1_start + graph_height);
-        ctx.lineTo(x_start + graph_width , y1_start + graph_height);
-
-        //Ejes grafico 2
-        ctx.moveTo(x_start, y2_start);
-        ctx.lineTo(x_start , y2_start + graph_height);
-        ctx.lineTo(x_start + graph_width , y2_start + graph_height);
-
-        ctx.lineWidth = line_width; 
-        ctx.strokeStyle = COLOR_GRAPH_AXIS;
-        ctx.lineWidth = line_width;
-        ctx.stroke();
-        ctx.closePath();
-
-        /*
-        * Grafico 1
-        */
-        //Barras grafico 1
-        let bar_width = graph_width * 0.12,
-            separator = graph_width * 0.1;
-
-        //conversiones: min=0 max=TOTAL_PARTICLES
-
-        //healthy
-        ctx.beginPath()
-        ctx.fillStyle = COLOR_HEALTHY;
-        ctx.fillRect( (x_start + separator) , (y1_start + graph_height) , (bar_width) , - (total_healthy / CANT_PARTICULAS) * graph_height);
-        
-        ctx.fillStyle = COLOR_SICK;
-        ctx.fillRect( (x_start + bar_width + 2 *separator) , (y1_start + graph_height) , (bar_width) , - (total_sick / CANT_PARTICULAS) * graph_height);
-
-        ctx.fillStyle = COLOR_RECOVERED;
-        ctx.fillRect( (x_start + 2 * bar_width + 3 * separator) , (y1_start + graph_height) , (bar_width) , - (total_recovered / CANT_PARTICULAS) * graph_height);
-        
-        ctx.fillStyle = COLOR_DECEASED;
-        ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y1_start + graph_height) , (bar_width) , - (total_deceased / CANT_PARTICULAS) * graph_height);
-        //Barra Healthy
-
-
-        /*
-        * Grafico 2
-        */
-        let dx_width = (graph_width + 1 / this.data.length),
-        offset = 5,
-        sat   = 0.25 * graph_height
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = COLOR_GRAPH_AXIS;
-        ctx.lineWidth = line_width;
-
-        /*
-        if(Particle.isSatured()){
-            ctx.strokeStyle = COLOR_SICK;
-        }
-        else{
-            ctx.strokeStyle = COLOR_RECOVERED;
-        }*/
-
-        ctx.strokeStyle = COLOR_SICK;
-        ctx.lineWidth = 4;
-
-        if(refresh_curve){
-            this.data.push((total_sick / CANT_PARTICULAS) * graph_height)
-            refresh_curve = false;
-        }
-
-        ctx.moveTo(x_start + separator , y2_start + graph_height - this.data[0] )
-        for (let i = 1; i < this.data.length; i++) {
-            ctx.lineTo(x_start + offset * (i+1) ,  y2_start + graph_height - this.data[i])
-        }
-        
-        ctx.stroke();
-        console.log(this.data.length)
-
-
-
-
+    //Axis
+    ctx.moveTo(x_start , y_start + graph_height)
+    ctx.lineTo(x_start + graph_width , y_start + graph_height)
     }
 
 
+    drawC2(){
+         
+        let x_start = cv_width * 0.15,
+            y_start = cv_height * 0.82,
+            line_width= 1.5,
+
+            graph_height= cv_height * 0.15,
+            graph_width = cv_width * 0.7,
+
+            sat   = 0.25 * graph_height,
+
+            dx_width = graph_width / 400, //ancho de cada barra
+            offset = dx_width - 1 //para que no queden espacios en blanco
+
+        const input = [4];
+        input[0]= (total_healthy   / CANT_PARTICULAS) * graph_height
+        input[1]= (total_sick      / CANT_PARTICULAS) * graph_height
+        input[2]= (total_recovered / CANT_PARTICULAS) * graph_height
+        input[3]= (total_deceased  / CANT_PARTICULAS) * graph_height
+   
+
+        //Background    
+        ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
+        ctx.fillRect(x_start , y_start , graph_width , graph_height);
+
+        //Satured constant
+        ctx.moveTo(x_start , y_start - graph_height + sat)
+
+
+        //saturation axis
+        ctx.lineWidth = line_width
+        ctx.strokeStyle = COLOR_GRAPH_AXIS
+        ctx.moveTo(x_start , y_start + graph_height - sat)
+        ctx.lineTo(x_start + graph_width , y_start + graph_height - sat)
+        ctx.stroke()
+
+
+        this.data.push(input)
+
+        if((this.data.length * offset - 5 > graph_width) && total_sick){
+            this.data.shift();
+        }
+
+        for (let i = 0; (i < this.data.length) && ((i * offset) < graph_width) ; i++) {
+            let last_y = y_start;
+
+            ctx.fillStyle = "rgba(0,0,0,0)"
+            ctx.fillRect(x_start + offset * i , last_y , dx_width , this.data[i][0]);
+            last_y += this.data[i][0];
+
+            ctx.fillStyle =  COLOR_RECOVERED
+            ctx.fillRect(x_start + offset * i , last_y , dx_width , this.data[i][2]);
+            last_y += this.data[i][2];
+
+            ctx.fillStyle = COLOR_DECEASED
+            ctx.fillRect(x_start + offset * i , last_y , dx_width , this.data[i][3]);
+            last_y += this.data[i][3];
+
+            ctx.fillStyle = COLOR_SICK
+            ctx.fillRect(x_start + offset * i , last_y , dx_width , this.data[i][1]);
+            last_y += this.data[i][1];
+        }
+    
+        ctx.font =  '1rem Roboto'
+        ctx.textAlign = "start"
+        ctx.fillStyle = "white"
+        ctx.fillText(`#StayHome to flatten the curve` , x_start , y_start - graph_height * 0.1 )
+        
 
 
 
+        ctx.font =  '1rem Roboto'
+        ctx.fillStyle = "white"
+        if (Particle.isSatured()){
+            ctx.fillText("System Colapsed" , x_start + graph_width * 0.05 + graph_width * 0.005 * Math.random() , y_start + graph_height * 0.3 + graph_height * 0.005 * Math.random())
+        }
+        else{
+            ctx.fillText("System is OK" , x_start + graph_width * 0.05 , y_start + graph_height * 0.3)
+        }
+       
+       
+       
+    }
 }

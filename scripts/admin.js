@@ -12,7 +12,7 @@ class Admin{
     generarParticulas(){
 
         //moviles
-        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES; i++){
+        for(var i = 0; i < CANT_PARTICULAS - CANT_INMOVILES - 1; i++){
             this.particulas_moviles.push(new Particle_movil(HEALTHY));
         }
 

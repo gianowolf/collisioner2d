@@ -25,23 +25,21 @@ const COLOR_BACKGROUND  = "#333333"
 const COLOR_GRAPH_AXIS  = "#666666"
 const COLOR_GRAPH_BACK  = "#111111"
 const COLOR_HEALTHY     = "#999999"
-const COLOR_SICK        = "#CC6666"
-const COLOR_RECOVERED   = "#6699CC"
+const COLOR_SICK        = "#dd8484"//"#dd7e6b"
+const COLOR_RECOVERED   = "#7d7d9c"//"#76a5af"
 const COLOR_DECEASED    = "#000000"
 const COLOR_TREE        = "#181818"    
 
 
 //Times
-const TIME_SICK   = 4 * 1000 // 4s
+const TIME_SICK   = 7 * 1000 // 4s
 const TIME_FRAMES = 20       // 20ms   
-const CHART_REFRESH = 500
-
 
 
 /*
 * MAIN PROGRAM
 */
-let canvas = document.getElementById("canvas");
+canvas = document.getElementById("canvas");
 let refresh_curve = true;
 cv_width = window.innerWidth;
 cv_height = window.innerHeight;
@@ -70,6 +68,3 @@ function loop()
 }
 
 setInterval(loop , TIME_FRAMES);
-setInterval(() => {
-    refresh_curve = true
-}, CHART_REFRESH);
