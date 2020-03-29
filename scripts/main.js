@@ -3,9 +3,9 @@
 */
 //Particles Setup 
 
-let cant_particulas = 3000;
-let cant_inmobiles  = 0;
-let radio           = 2;
+let cant_particulas = 1000;
+let cant_inmoviles  = 0;
+let radio           = 6;
 
 const SPEED           = 2
 const RADIO           = 2
@@ -76,7 +76,7 @@ function fRestart(){
 stats = new Stats_controller();
 
 //crear particulas
-admin.generarParticulas();
+admin.generarParticulas(1000, 0);
 admin.generarArbol(cv_width, cv_height);
 
 function loop()

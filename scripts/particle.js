@@ -1,9 +1,3 @@
-let total_sick = 0,
-    total_recovered = 0,
-    total_deceased = 0,
-    total_healthy = 0;
-
-
 class Particle{
 
     constructor(state)
@@ -15,16 +9,14 @@ class Particle{
         } else{
             this.edad = 2;
         }
-
-        total_healthy++;
-
         //State: sick | healthy
         this.state = state; 
         if(state) //zero-patient
         {
             this.x = canvas.clientWidth/2;
             this.y = canvas.clientHeight/2;
-            this.imSick();
+            ParticlesFactory.newSick(this);
+            this.state = SICK;
         }else{
              //Creates particle in random-position
             this.x = radio + Math.random() * (canvas.clientWidth  - 2 * radio);
@@ -32,109 +24,31 @@ class Particle{
         }
     }
 
-
-
-    imSick()
-    {
-        total_sick++;
-        total_healthy--;
-        let random = Math.random();
-        switch (this.edad) {
-
-            //Anciano
-            case 2:
-                if(Particle.isSatured()){ 
-                    setTimeout(() => { 
-                        this.state = DECEASED;
-                        this.dx = 0; this.dy = 0;
-                        total_deceased++;
-                        total_sick--;
-                    }, TIME_SICK)}
-                else{
-                    if(random < 0.05){
-                        setTimeout(() => { 
-                            this.state = DECEASED;
-                            this.dx = 0; this.dy = 0;
-                            total_deceased++;
-                            total_sick--;
-                        }, TIME_SICK)
-                    }
-                    else{
-                        setTimeout(() => { 
-                            this.state = RECOVERED;
-                            total_recovered++;
-                            total_sick--;
-                        }, TIME_SICK)
-                    }
-                }
-                break;
-
-            default:
-                if(Particle.isSatured())
-                { 
-                    if( random< 0.01){
-                        setTimeout(() => { 
-                            this.state = DECEASED;
-                            this.dx = 0; this.dy = 0;
-                            total_deceased++;
-                            total_sick--;
-                        }, TIME_SICK)
-                    }
-                    else {
-                    setTimeout(() => { 
-                        this.state = RECOVERED;
-                        total_recovered++;
-                        total_sick--;
-                    }, TIME_SICK)
-                    }
-                }
-                else{
-                    if(Math.random() < 0.001){
-                        setTimeout(() => { 
-                            this.state = DECEASED;
-                            this.dx = 0; this.dy = 0;
-                            total_deceased++;
-                            total_sick--;
-                        }, TIME_SICK)
-                    }
-                    else{
-                        setTimeout(() => { 
-                            this.state = RECOVERED;
-                            total_recovered++;
-                            total_sick--;
-                        }, TIME_SICK)
-                    }
-                }
-        
-                break;
-        }
+    stopMove(){
+        this.dx = 0;
+        this.dy = 0;
     }
 
-    static isSatured(){
-        if(total_sick/cant_particulas > 0.15){
+    getAge(){
+        return this.edad;
+    }
+
+    getState(){
+        return this.state
+    }
+
+    setState(new_state){
+        this.state = new_state;
+    }
+
+    contagio(contact_particle){
+
+        if(this.state == 0 && contact_particle.state == 1){
             return true;
         }
-        else{
+        else
             return false;
-        }
     }
-
-
-    changeState(contact_particle)
-    {
-        if(this.state == 0 && contact_particle.state == 1)
-        {
-            this.state = 1;
-            this.imSick();
-        }
-    }
-
-
-
-
-
-
-
 
 
     /*
@@ -206,8 +120,14 @@ class Particle{
             return;
         }
 
-        p1.changeState(p2);
-        p2.changeState(p1);
+        if(p1.contagio(p2)){
+            this.state = SICK;
+            ParticlesFactory.newSick(p1);
+        }
+        if(p2.contagio(p1)){
+            this.state = SICK;
+            ParticlesFactory.newSick(p2);
+        }
 
         let distanciaMagnitud = Math.sqrt(distanciaCuadrado);
 

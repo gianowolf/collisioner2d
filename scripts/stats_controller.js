@@ -6,13 +6,15 @@ class Stats_controller{
 
     }
 
-    drawData(){
-        this.drawInput();
-        this.drawC1();
-        this.drawC2();
+    drawData(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick,cant_inmoviles){
+
+        this.drawInput(cant_particulas, cant_inmoviles);
+        this.drawC1(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick);
+        this.drawC2(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick);
+
     }
 
-    drawInput(){
+    drawInput(cant_particulas,cant_inmoviles){
 
       let 
         x_start = cv_width * 0.05, //posicion x slider
@@ -40,7 +42,7 @@ class Stats_controller{
         range_3.style.width = graph_width+"px";
 
         p_cant.innerHTML = "Cantidad particulas: "+cant_particulas;
-        p_inmo.innerHTML = "Cantidad particulas inmoviles: "+cant_inmobiles;
+        p_inmo.innerHTML = "Cantidad particulas inmoviles: "+cant_inmoviles;
         p_radi.innerHTML = "Radio particulas: "+radio;
 
         //Background    
@@ -52,79 +54,74 @@ class Stats_controller{
 
 
     // Bar Chart
-    drawC1(){
+    drawC1(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick){
         
-    let x_start = cv_width * 0.8,
-        y_start = cv_height * 0.3,
+        let x_start = cv_width * 0.8,
+            y_start = cv_height * 0.3,
 
-        graph_height= cv_height * 0.15,
-        graph_width = cv_width * 0.15,
+            graph_height= cv_height * 0.15,
+            graph_width = cv_width * 0.15,
 
-        line_width= 1.5,
-        sobra = 15,
+            line_width= 1.5,
+            sobra = 15,
 
-        x_background = x_start - sobra,
-        y_background = y_start - sobra,
-        back_height = graph_height + 2 * sobra,
-        back_width =  graph_width + 2 * sobra;
+            x_background = x_start - sobra,
+            y_background = y_start - sobra,
+            back_height = graph_height + 2 * sobra,
+            back_width =  graph_width + 2 * sobra;
 
-   //Background    
-   ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
-   ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
+        //Background    
+        ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
+        ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
 
+        ctx.lineWidth = line_width
+        ctx.strokeStyle = COLOR_GRAPH_AXIS
 
-   
- 
+        ctx.stroke()
+        ctx.closePath()
 
+        let bar_width = graph_width * 0.12,
+            separator = graph_width * 0.1,
+            half_point = bar_width /2;
 
-   ctx.lineWidth = line_width
-   ctx.strokeStyle = COLOR_GRAPH_AXIS
+        //conversiones: min=0 max=TOTAL_PARTICLES
 
-   ctx.stroke()
-   ctx.closePath()
+        //healthy
+        ctx.beginPath()
+        ctx.fillStyle = COLOR_HEALTHY;
+        ctx.fillRect( (x_start + separator) , (y_start + graph_height) , (bar_width) , - (total_healthy / cant_particulas) * graph_height);
+        ctx.font =  '.8rem Roboto'
+        ctx.textAlign = "center"
+        ctx.fillStyle = "white"
+        ctx.fillText(`${total_healthy}` , separator*1 + x_start + half_point , y_start + graph_height + 20 )
 
-   let bar_width = graph_width * 0.12,
-       separator = graph_width * 0.1,
-       half_point = bar_width /2;
+        ctx.fillStyle = COLOR_SICK;
+        ctx.fillRect( (x_start + 1*bar_width + 2 *separator) , (y_start + graph_height) , (bar_width) , - (total_sick / cant_particulas) * graph_height);
+        ctx.textAlign = "center"
+        ctx.fillStyle = "white"
+        ctx.fillText(`${total_sick}` , separator * 2  + bar_width * 1 + x_start + half_point , y_start + graph_height + 20 )
 
-   //conversiones: min=0 max=TOTAL_PARTICLES
+        ctx.fillStyle = COLOR_RECOVERED;
+        ctx.fillRect( (x_start + 2*bar_width + 3 * separator) , (y_start + graph_height) , (bar_width) , - (total_recovered / cant_particulas) * graph_height);
+        ctx.textAlign = "center"
+        ctx.fillStyle = "white"
+        ctx.fillText(`${total_recovered}` , separator * 3 +  bar_width * 2 + x_start + half_point , y_start + graph_height + 20 )
 
-   //healthy
-   ctx.beginPath()
-   ctx.fillStyle = COLOR_HEALTHY;
-   ctx.fillRect( (x_start + separator) , (y_start + graph_height) , (bar_width) , - (total_healthy / cant_particulas) * graph_height);
-   ctx.font =  '.8rem Roboto'
-   ctx.textAlign = "center"
-   ctx.fillStyle = "white"
-   ctx.fillText(`${total_healthy}` , separator*1 + x_start + half_point , y_start + graph_height + 20 )
+        ctx.fillStyle = COLOR_DECEASED;
+        ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y_start + graph_height) , (bar_width) , - (total_deceased / cant_particulas) * graph_height);
+        ctx.textAlign = "center"
+        ctx.fillStyle = "white"
+        ctx.fillText(`${total_deceased}` , separator * 4 +  bar_width * 3 + x_start + half_point , y_start + graph_height + 20 )
+    
 
-   ctx.fillStyle = COLOR_SICK;
-   ctx.fillRect( (x_start + 1*bar_width + 2 *separator) , (y_start + graph_height) , (bar_width) , - (total_sick / cant_particulas) * graph_height);
-   ctx.textAlign = "center"
-   ctx.fillStyle = "white"
-   ctx.fillText(`${total_sick}` , separator * 2  + bar_width * 1 + x_start + half_point , y_start + graph_height + 20 )
-
-   ctx.fillStyle = COLOR_RECOVERED;
-   ctx.fillRect( (x_start + 2*bar_width + 3 * separator) , (y_start + graph_height) , (bar_width) , - (total_recovered / cant_particulas) * graph_height);
-   ctx.textAlign = "center"
-   ctx.fillStyle = "white"
-   ctx.fillText(`${total_recovered}` , separator * 3 +  bar_width * 2 + x_start + half_point , y_start + graph_height + 20 )
-
-   ctx.fillStyle = COLOR_DECEASED;
-   ctx.fillRect( (x_start + 3 * bar_width + 4 * separator) , (y_start + graph_height) , (bar_width) , - (total_deceased / cant_particulas) * graph_height);
-   ctx.textAlign = "center"
-   ctx.fillStyle = "white"
-   ctx.fillText(`${total_deceased}` , separator * 4 +  bar_width * 3 + x_start + half_point , y_start + graph_height + 20 )
-   
-
-    //Axis
-    ctx.moveTo(x_start , y_start + graph_height)
-    ctx.lineTo(x_start + graph_width , y_start + graph_height)
+        //Axis
+        ctx.moveTo(x_start , y_start + graph_height)
+        ctx.lineTo(x_start + graph_width , y_start + graph_height)
     }
 
 
     //Curve Chart
-    drawC2(){
+    drawC2(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick){
          
         let x_start = cv_width * 0.15,
             y_start = cv_height * 0.82,
@@ -197,7 +194,7 @@ class Stats_controller{
 
         ctx.font =  'italic 300 1rem Roboto'
         ctx.fillStyle = "#aaa"
-        if (Particle.isSatured()){
+        if (ParticlesFactory.systemSatured()){
             ctx.fillText("Colapsed" , x_start + graph_width * 0.05, y_start + graph_height * 0.3)
             
         }

@@ -4,39 +4,23 @@ class Admin{
         this.particulas_moviles = [];
         this.particulas_inmoviles = [];
         this.arbol;
-        this.total_particulas;
         this.collisioner = new Collisioner();
         this.stats = new Stats_controller();
         this.pause = false;
+        this.pf;
 
         //
 
         this.total_healthy = 0;
     }
 
-    generarParticulas(){
+    generarParticulas(total_particulas, inmoviles){
 
-        
-        total_sick = 0;
-        total_deceased = 0;
-        total_recovered = 0; 
+        this.pf = new ParticlesFactory(total_particulas, inmoviles);
 
-        this.particulas_moviles = [];
-        this.particulas_inmoviles = [];
-
-        //moviles
-        for(var i = 0; i < cant_particulas - cant_inmobiles - 1; i++){
-            this.particulas_moviles.push(new Particle_movil(HEALTHY));
-            this.total_healthy++;
-        }
-
-        this.particulas_moviles.push(new Particle_movil(SICK));
-
-        //inmoviles-cuarentena
-        for(var i = 0; i < cant_inmobiles; i++){
-            this.particulas_inmoviles.push(new Particle_inmovil(HEALTHY));
-            this.total_healthy++;
-        }        
+        this.particulas_moviles = this.pf.getParticulasMoviles();
+        this.particulas_inmoviles = this.pf.getParticulasInmoviles();
+              
     }
 
     generarArbol(canvasWidth , canvasHeight){
@@ -56,7 +40,7 @@ class Admin{
             this.arbol.clear();
 
             //inserto INMOVILES
-            for(let i = 0; i < cant_inmobiles; i++){
+            for(let i = 0; i < cant_inmoviles; i++){
                 this.arbol.insert(this.particulas_inmoviles[i]);  
             }
 
@@ -76,7 +60,7 @@ class Admin{
                 this.particulas_inmoviles[i].draw();
             }
             
-            this.stats.drawData();
+            this.stats.drawData(this.pf.getHealthies(),this.pf.getTotalParticles(),this.pf.getRecovereds(),this.pf.getDeceaseds(), this.pf.getSicks(), this.pf.getInmoviles());
         }
         
         
