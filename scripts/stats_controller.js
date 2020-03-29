@@ -34,8 +34,8 @@ class Stats_controller{
         div.style.top = y_start+"px";
         div.style.left = x_start+"px";
 
-        botonera.style.top = y_background+back_height+20+"px";
-        botonera.style.left = x_background+"px";
+        botonera.style.top = y_background+div.clientHeight+10+"px";
+        botonera.style.left = x_background+5+"px";
 
         range_1.style.width = graph_width+"px";
         range_2.style.width = graph_width+"px";
@@ -43,12 +43,7 @@ class Stats_controller{
 
         p_cant.innerHTML = "Cantidad particulas: "+cant_particulas;
         p_inmo.innerHTML = "Cantidad particulas inmoviles: "+cant_inmoviles;
-        p_radi.innerHTML = "Radio particulas: "+radio;
-
-        //Background    
-        ctx.fillStyle = "rgba(255 , 255, 255, 0.1)"
-        ctx.fillRect(x_background , y_background , back_width , back_height + sobra)
-        
+        p_radi.innerHTML = "Radio particulas: "+radio;        
     
     }
 
