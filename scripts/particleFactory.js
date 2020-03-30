@@ -90,8 +90,8 @@ class ParticlesFactory{
         }  
 	}
 
-	static systemSatured(){
-        if( this.sicks / this.total > 0.2){
+	systemSatured(){
+        if( (this.sicks/this.total) > 0.3){
             return true;
         }
         else{

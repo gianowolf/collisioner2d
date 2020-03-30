@@ -151,8 +151,8 @@ button:active {
     display:flex;
     justify-content: center;
     align-items: center;
-    height: 4rem;
-    width: 4rem ;
+    height: 3.5rem;
+    width: 3.5rem ;
     border: none;
     border-radius:.5rem;
     margin: .5rem;
@@ -161,8 +161,8 @@ button:active {
 }
 
 .control-button svg{
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 .control-button:hover svg{
@@ -177,7 +177,7 @@ svg{
 }
 
 .control-button svg{
-    fill: #DDD;
+    fill: #bbb;
 }
 
 /* ----------------- INFO STILES ----------------- */

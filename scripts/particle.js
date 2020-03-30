@@ -5,7 +5,7 @@ class Particle{
 		this.radio = radio;
         // Random Age particle
         let rand = Math.random() * 10;
-        if(rand < 8){
+        if(rand < 9){
             this.age = 1;
         } else{
             this.age = 2;
@@ -64,7 +64,7 @@ class Particle{
         
         switch (this.age) {
             case 2:
-                if(ParticlesFactory.systemSatured())
+                if(admin.pf.systemSatured())
                 {
                     timer_id = setTimeout(() => {
                         this.state = DECEASED;
@@ -100,7 +100,7 @@ class Particle{
 
             default:
 
-                if(ParticlesFactory.systemSatured())
+                if(admin.pf.systemSatured())
                 {
                     if(random < 0.01)
                     {
@@ -114,7 +114,7 @@ class Particle{
                     else
                     {
                         timer_id = setTimeout(() => {
-                            p.setState(RECOVERED)
+                            this.setState(RECOVERED)
                             admin.newRecovered();
                         }, TIME_SICK);
                         

@@ -7,7 +7,7 @@ const SPEED           = 2
 
 //Tree Setup
 const MAX_PARTICLES = 5
-const MAX_LEVELS    = 5
+const MAX_LEVELS    = 3
 const LVL_CERO      = 0
 const DRAW_TREE     = false;
 
@@ -29,7 +29,7 @@ const COLOR_TREE        = "#181818"
 
 
 //Times
-const TIME_SICK   = 7 * 1000 // 4s
+const TIME_SICK   = 5 * 1000 // 4s
 const TIME_FRAMES = 20       // 20ms   
 
 

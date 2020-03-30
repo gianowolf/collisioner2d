@@ -124,7 +124,7 @@ class Stats_controller{
             graph_height= cv_height * 0.15,
             graph_width = cv_width * 0.7,
 
-            sat   = 0.2 * graph_height,
+            sat   = 0.3 * graph_height,
 
             dx_width = graph_width / 600, //ancho de cada barra
             offset = dx_width - 1 //para que no queden espacios en blanco
@@ -183,10 +183,14 @@ class Stats_controller{
         ctx.fillStyle = "white"
         ctx.fillText(`#StayHome to flatten the curve | #MeQuedoEnCasa para aplanar la curva` , x_start , y_start - graph_height * 0.1 )
         
-        ctx.font =  '10rem Roboto'
-        ctx.fillStyle = "white"
-        if (ParticlesFactory.systemSatured()){
-            ctx.fillText("Colapsed" , x_start + graph_width * 0.05, y_start + graph_height * 0.3)
+
+
+
+        if(admin.pf.systemSatured()){
+            ctx.font =  'Italic 1rem Roboto'
+            ctx.fillStyle = "#aaa"
+            ctx.fillText(`Collapsed Healthcare System.` , x_start + graph_width * 0.05, y_start + graph_height * 0.3)
+
         }
        
        
