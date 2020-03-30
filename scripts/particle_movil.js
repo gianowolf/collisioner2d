@@ -1,7 +1,7 @@
 class Particle_movil extends Particle{
 
-    constructor(state){
-        super(state);
+    constructor(state,radio){
+        super(state,radio);
         //speed vector
         let theta = Math.random()  * 2 * Math.PI;
         this.dx   =  Math.cos(theta) * SPEED;

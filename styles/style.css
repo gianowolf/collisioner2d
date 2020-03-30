@@ -22,7 +22,7 @@ a, li{
 }
 
 a:hover, li:hover{
-    color: #FE6C2C;
+    color: #dd8484;
     transition: .3s;
 }
 
@@ -131,18 +131,28 @@ li{
 }
 
 #restart{
-    display:none;
+    display:flex;
 }
 #pause{
     display:none
 }
 
+button:focus {
+    outline:0;
+}
+
+button:active {
+
+    background: #dd8484
+}
+
 .control-button{
+    outline:0;
     display:flex;
     justify-content: center;
     align-items: center;
-    height: 2.1rem;
-    width: 2.1rem ;
+    height: 4rem;
+    width: 4rem ;
     border: none;
     border-radius:.5rem;
     margin: .5rem;
@@ -151,8 +161,8 @@ li{
 }
 
 .control-button svg{
-    height: 20px;
-    width: 20px;
+    height: 3rem;
+    width: 3rem;
 }
 
 .control-button:hover svg{
@@ -167,7 +177,7 @@ svg{
 }
 
 .control-button svg{
-    fill: #AAA;
+    fill: #DDD;
 }
 
 /* ----------------- INFO STILES ----------------- */
@@ -232,8 +242,9 @@ svg{
     margin-bottom: 8px;
 }
 
-input[type="range"]{
+input[type="range"] {
     margin-bottom: 25px;
+    background-color: rgba(0, 0, 0, 0);
     display: block;
     outline: none;
 }

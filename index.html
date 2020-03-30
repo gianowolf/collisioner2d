@@ -21,43 +21,17 @@
 
     <div id="input_div">
         <p id="p-cant">Cantidad particulas:</p>
-        <input type="range" id="slider_cant_particulas" min="100" max="3000">
-        <p id="p-inmo">Cantidad particulas inmoviles:</p>
-        <input type="range" id="slider_cant_inmoviles" min="0"> <!-- max="CANT_PARTICULAS"-->
-        <p id="p-radi">Radio particulas:</p>
-        <input type="range" id="slider_radio_particulas" min="1" max="8">
+        <input type="range" id="slider_cant_particulas" value="1000" min="100" max="3000">
+        <p id="p-inmo">Cantidad en casa:</p>
+        <input type="range" id="slider_cant_inmoviles" min="0" value="0"> <!-- max="CANT_PARTICULAS"-->
+        <p id="p-radi">Tamaño:</p>
+        <input type="range" id="slider_radio_particulas" value="5" min="1" max="8">
     </div>
 
     <div id="botonera">
 
         <button class="control-button" id="restart">
             <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="26px" height="26px"><path d="M 10 0 L 0 2 L 3.03125 5.03125 C 1.273438 7.222656 0.1875 9.972656 0.1875 13 C 0.1875 20.074219 5.921875 25.8125 13 25.8125 C 20.078125 25.8125 25.8125 20.074219 25.8125 13 C 25.8125 7.695313 22.59375 3.132813 18 1.1875 L 18 4.28125 C 21.027344 6.019531 23.0625 9.261719 23.0625 13 C 23.0625 18.5625 18.5625 23.0625 13 23.0625 C 7.4375 23.0625 2.9375 18.5625 2.9375 13 C 2.9375 10.726563 3.695313 8.652344 4.96875 6.96875 L 8 10 Z"/></svg>
-        </button>
-
-        <button class="control-button" id="play">
-            <svg version="1.1" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1">
-                    <g  id="Icons-AV" transform="translate(-88.000000, -88.000000)">
-                <g id="play-arrow" transform="translate(88.500000, 88.000000)"><path d="M0,0 L0,14 L11,7 L0,0 Z" id="Shape"/>
-                </g></g></g>
-            </svg>
-        </button>
-
-        <button class="control-button" id="pause">
-            <svg width="12px" height="14px" viewBox="0 0 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Outlined" transform="translate(-310.000000, -955.000000)">
-                        <g id="Av" transform="translate(100.000000, 852.000000)">
-                            <g id="Outlined-/-AV-/-pause" transform="translate(204.000000, 98.000000)">
-                                <g>
-                                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                                    <path d="M6,19 L10,19 L10,5 L6,5 L6,19 Z M14,5 L14,19 L18,19 L18,5 L14,5 Z" fill="#AAA"></path>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
         </button>
 
     </div>

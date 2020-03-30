@@ -1,13 +1,14 @@
 class Particle{
 
-    constructor(state)
-    {
+    constructor(state, radio)
+	{
+		this.radio = radio;
         // Random Age particle
         let rand = Math.random() * 10;
-        if(rand < 9){
-            this.edad = 1;
+        if(rand < 8){
+            this.age = 1;
         } else{
-            this.edad = 2;
+            this.age = 2;
         }
         //State: sick | healthy
         this.state = state; 
@@ -15,12 +16,12 @@ class Particle{
         {
             this.x = canvas.clientWidth/2;
             this.y = canvas.clientHeight/2;
-            ParticlesFactory.newSick(this);
+            this.imSick();
             this.state = SICK;
         }else{
              //Creates particle in random-position
-            this.x = radio + Math.random() * (canvas.clientWidth  - 2 * radio);
-            this.y = radio + Math.random() * (canvas.clientHeight - 2 * radio);
+            this.x = this.radio + Math.random() * (canvas.clientWidth  - 2 * this.radio);
+            this.y = this.radio + Math.random() * (canvas.clientHeight - 2 * this.radio);
         }
     }
 
@@ -30,7 +31,7 @@ class Particle{
     }
 
     getAge(){
-        return this.edad;
+        return this.age;
     }
 
     getState(){
@@ -41,13 +42,106 @@ class Particle{
         this.state = new_state;
     }
 
-    contagio(contact_particle){
-
+    contagio(contact_particle)
+    {
         if(this.state == 0 && contact_particle.state == 1){
             return true;
         }
         else
             return false;
+    }
+
+
+    /*
+    * STATES CONTROL
+    */
+    imSick(){
+
+        this.state = SICK;
+
+        let random = Math.random(),
+            timer_id;
+        
+        switch (this.age) {
+            case 2:
+                if(ParticlesFactory.systemSatured())
+                {
+                    timer_id = setTimeout(() => {
+                        this.state = DECEASED;
+                        this.stopMove();
+                        admin.newDeceased();
+                    }, TIME_SICK);
+                    
+                }
+                else
+                {
+                    if(random < 0.1)
+                    {
+                        timer_id = setTimeout(() =>{
+                            this.state = DECEASED;
+                            this.stopMove();
+                            admin.newDeceased();
+                        }, TIME_SICK)
+                        
+                    }
+                    else
+                    {
+                        timer_id = setTimeout(() => {
+                            this.state = RECOVERED;
+                            admin.newRecovered();
+                        }, TIME_SICK);
+                        
+                    }
+                }
+                admin.newSick(timer_id);
+
+                break;
+
+
+            default:
+
+                if(ParticlesFactory.systemSatured())
+                {
+                    if(random < 0.01)
+                    {
+                        timer_id = setTimeout(() =>{
+                            this.state = DECEASED;
+                            this.stopMove();
+                            admin.newDeceased();
+                        }, TIME_SICK)
+                        
+                    }
+                    else
+                    {
+                        timer_id = setTimeout(() => {
+                            p.setState(RECOVERED)
+                            admin.newRecovered();
+                        }, TIME_SICK);
+                        
+                    }
+                }
+                else
+                    {
+                    if(random < 0.001)
+                    {
+                        timer_id = setTimeout(() =>{
+                            this.state = DECEASED;
+                            this.stopMove();
+                            admin.newDeceased();
+                        }, TIME_SICK)
+                        
+                    }
+                    else
+                    {
+                        timer_id = setTimeout(() => {
+                            this.state = RECOVERED;
+                            admin.newRecovered();
+                        }, TIME_SICK);
+                    }
+                }
+                admin.newSick(timer_id);
+                break;
+        }
     }
 
 
@@ -73,27 +167,27 @@ class Particle{
    }
 
     draw()
-    {
+	{
         let cv = document.getElementById("canvas");
         let ctx = cv.getContext("2d");
         
         ctx.beginPath();
 
         ctx.fillStyle = this.getColor();
-        ctx.arc(this.x, this.y, radio, 0, Math.PI*2, true);
+        ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2, true);
 
         ctx.fill();
     }
 
     move(){
         //Verificamos que la particula no sobrepase horizontalmente 
-        if(this.x + this.dx + radio >= canvas.clientWidth || this.x + this.dx - radio<= 0)
+        if(this.x + this.dx + this.radio >= canvas.clientWidth || this.x + this.dx - this.radio<= 0)
         {
 			this.dx = -this.dx;
         }
         
         //Verificamos que la particula no sobrepase verticalmente
-        if(this.y + this.dy + radio >= canvas.clientHeight || this.y + this.dy - radio <= 0)
+        if(this.y + this.dy + this.radio >= canvas.clientHeight || this.y + this.dy - this.radio <= 0)
         {
 			this.dy = -this.dy;
 		}
@@ -108,7 +202,7 @@ class Particle{
 
     static versus(p1,p2)
     {
-        let radioCuadrado = (radio + radio) * (radio + radio);
+        let radioCuadrado = (p1.radio + p1.radio) * (p2.radio + p2.radio);
         let distanciaX = p2.x - p1.x;
         let distanciaY = p2.y - p1.y;
         //Pitagoras
@@ -122,11 +216,11 @@ class Particle{
 
         if(p1.contagio(p2)){
             this.state = SICK;
-            ParticlesFactory.newSick(p1);
+            p1.imSick();
         }
         if(p2.contagio(p1)){
             this.state = SICK;
-            ParticlesFactory.newSick(p2);
+            p2.imSick();
         }
 
         let distanciaMagnitud = Math.sqrt(distanciaCuadrado);

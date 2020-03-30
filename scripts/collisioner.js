@@ -15,10 +15,10 @@ class Collisioner
                     let p2 = posibles_colisiones[j];
                     if(p1 != p2 && p1.state != DECEASED && p2.state != DECEASED)
                     {
-                        if(p1.x-radio < p2.x+radio 
-                            && p1.x+radio > p2.x-radio 
-                            && p1.y-radio < p2.y+radio 
-                            && p1.y+radio > p2.y-radio)
+                        if(p1.x - p1.radio < p2.x+ p2.radio 
+                            && p1.x + p1.radio > p2.x- p2.radio 
+                            && p1.y - p1.radio < p2.y+ p2.radio 
+                            && p1.y + p1.radio > p2.y- p2.radio)
                             {
                                 Particle.versus(p1,p2);
                             }

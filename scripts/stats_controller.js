@@ -1,16 +1,15 @@
 class Stats_controller{
     
-    constructor(){
-        
+    constructor()
+    {
         this.data = [];
-
     }
 
-    drawData(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick,cant_inmoviles){
+    drawData(total, inmoviles, healthies, sicks, recovereds, deceaseds){
 
-        this.drawInput(cant_particulas, cant_inmoviles);
-        this.drawC1(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick);
-        this.drawC2(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick);
+        this.drawInput(total , inmoviles)
+        this.drawC1(total , healthies , sicks , recovereds , deceaseds);
+        this.drawC2(total , healthies , sicks , recovereds , deceaseds);
 
     }
 
@@ -41,15 +40,15 @@ class Stats_controller{
         range_2.style.width = graph_width+"px";
         range_3.style.width = graph_width+"px";
 
-        p_cant.innerHTML = "Cantidad particulas: "+cant_particulas;
-        p_inmo.innerHTML = "Cantidad particulas inmoviles: "+cant_inmoviles;
-        p_radi.innerHTML = "Radio particulas: "+radio;        
+        p_cant.innerHTML = "Particles: "+ range_1.value;
+        p_inmo.innerHTML = "Immobile Particles: "+ range_2.value;
+        p_radi.innerHTML = "Radius Size: "+ range_3.value;        
     
     }
 
 
     // Bar Chart
-    drawC1(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick){
+    drawC1(cant_particulas, total_healthy, total_sick, total_recovered, total_deceased){
         
         let x_start = cv_width * 0.8,
             y_start = cv_height * 0.3,
@@ -116,7 +115,7 @@ class Stats_controller{
 
 
     //Curve Chart
-    drawC2(total_healthy,cant_particulas,total_recovered,total_deceased,total_sick){
+    drawC2(cant_particulas , total_healthy , total_sick , total_recovered , total_deceased){
          
         let x_start = cv_width * 0.15,
             y_start = cv_height * 0.82,
@@ -125,9 +124,9 @@ class Stats_controller{
             graph_height= cv_height * 0.15,
             graph_width = cv_width * 0.7,
 
-            sat   = 0.15 * graph_height,
+            sat   = 0.2 * graph_height,
 
-            dx_width = graph_width / 400, //ancho de cada barra
+            dx_width = graph_width / 600, //ancho de cada barra
             offset = dx_width - 1 //para que no queden espacios en blanco
 
         const input = [4];
@@ -182,19 +181,19 @@ class Stats_controller{
         ctx.font =  '1rem Roboto'
         ctx.textAlign = "start"
         ctx.fillStyle = "white"
-        ctx.fillText(`#StayHome to flatten the curve` , x_start , y_start - graph_height * 0.1 )
+        ctx.fillText(`#StayHome to flatten the curve | #MeQuedoEnCasa para aplanar la curva` , x_start , y_start - graph_height * 0.1 )
         
-
-
-
-        ctx.font =  'italic 300 1rem Roboto'
-        ctx.fillStyle = "#aaa"
+        ctx.font =  '10rem Roboto'
+        ctx.fillStyle = "white"
         if (ParticlesFactory.systemSatured()){
             ctx.fillText("Colapsed" , x_start + graph_width * 0.05, y_start + graph_height * 0.3)
-            
         }
        
        
        
+    }
+
+    clear(){
+        this.data = [];
     }
 }

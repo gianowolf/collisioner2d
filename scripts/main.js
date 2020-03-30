@@ -3,12 +3,7 @@
 */
 //Particles Setup 
 
-let cant_particulas = 1000;
-let cant_inmoviles  = 0;
-let radio           = 6;
-
 const SPEED           = 2
-const RADIO           = 2
 
 //Tree Setup
 const MAX_PARTICLES = 5
@@ -52,32 +47,27 @@ canvas.setAttribute("height",cv_height);
 
 var ctx = canvas.getContext("2d");
 
-var admin = new Admin();
-
-pause.addEventListener('click',fPause);
-play.addEventListener('click',fPlay);
+let admin = new Admin();
 restart.addEventListener('click',fRestart);
 
-function fPause(){
-	admin.pause();
+fPlay();
+
+function fPlay()
+{
+	admin.generarParticulas(parseInt(range_1.value) , parseInt(range_2.value) ,  parseInt(range_3.value));
+    admin.generarArbol(cv_width, cv_height);
 }
 
-function fPlay(){
-	admin.play();
+function fRestart()
+{
+    admin.restart();
+    fPlay();
 }
 
-function fRestart(){
-	admin.restart();
-}
 
-
-
-
-stats = new Stats_controller();
 
 //crear particulas
-admin.generarParticulas(1000, 0);
-admin.generarArbol(cv_width, cv_height);
+
 
 function loop()
 {

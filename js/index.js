@@ -13,20 +13,19 @@ let range_1 =  document.querySelector("#slider_cant_particulas");
 let range_2 =  document.querySelector("#slider_cant_inmoviles");
 let range_3 =  document.querySelector("#slider_radio_particulas");
 
+
 let botonera = document.querySelector("#botonera");
 
 let p_cant =  document.querySelector("#p-cant");
 let p_inmo =  document.querySelector("#p-inmo");
 let p_radi =  document.querySelector("#p-radi");
 
-let pause = document.querySelector("#pause");
-let play = document.querySelector("#play");
 let restart = document.querySelector("#restart");
 
 document.body.addEventListener('click', ocultar);
 
-function ocultar(e){
-
+function ocultar(e)
+{
 	 var target = e.target;
 
 	 if((canvas == target) || (document.body == target) || (nav == target)){
@@ -35,16 +34,10 @@ function ocultar(e){
 		contact.style.display = 'none';
 		bContact = false;
 	}
-
-
-	
-
 }
 
-
-
-function mostrarContact(){
-
+function mostrarContact()
+{
 	info.style.display = 'none';
 	bInfo = false;
 
@@ -57,12 +50,11 @@ function mostrarContact(){
 	}
 
 	bContact = !bContact;
-	
 }
 
 
-function mostrarInfo(){
-
+function mostrarInfo()
+{
 	contact.style.display = 'none';
 	bContact = false;
 
@@ -73,9 +65,7 @@ function mostrarInfo(){
 	}else{
 		info.style.display = 'none';
 	}
-
 	bInfo = !bInfo;
-	
 }
 
 
